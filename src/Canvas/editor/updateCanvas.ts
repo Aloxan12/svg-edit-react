@@ -1,5 +1,5 @@
 // code derived from svg-editor.js
-const updateCanvas = (svgCanvas, cnvs, curConfig, center, newCtr = {}) => {
+const updateCanvas = (svgCanvas: any, cnvs: any, curConfig: any, center: any, newCtr: any = {}) => {
   // workarea node is the parent of the svg canvas
   const workarea = cnvs.parentNode
   //  let w = workarea.width(), h = workarea.height();

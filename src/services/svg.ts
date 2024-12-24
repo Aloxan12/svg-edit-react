@@ -4,13 +4,13 @@
     @important This code is needed for a specific usage and will be removed in the future.
 */
 
-const saveOIAttr = (svgContent) => {
+const saveOIAttr = (svgContent: any) => {
   // eslint-disable-next-line prefer-regex-literals
   const result = svgContent.match(new RegExp('oi:animations="(.*?)"')) ?? {}
   return result['0'] ?? ''
 }
 
-const restoreOIAttr = (svgContent, attributes) => {
+const restoreOIAttr = (svgContent: any, attributes: any) => {
   if (!attributes) return svgContent
   const oiNameSpace = 'xmlns:oi="http://oimotion.optimistik.fr/namespace/svg/OIdata"'
   return svgContent.replace('<svg', `<svg ${oiNameSpace} ${attributes}`)

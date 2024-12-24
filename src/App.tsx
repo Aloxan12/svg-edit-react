@@ -1,30 +1,31 @@
 import './editor.less'
-import React, {useEffect, useLayoutEffect} from 'react';
-// @ts-ignore
-import Editor from './editor.class'
+import React from 'react';
 import ReactDOM from "react-dom/client";
-// @ts-ignore
 import Canvas from "./Canvas/Canvas";
 
 interface AppProps{
     root: ReactDOM.Root
 }
 
-export const App = ({ root }: AppProps) => {
+export const App = ({}: AppProps) => {
+    const editorContainer = React.useRef<HTMLDivElement | null>(null);
 
-    useLayoutEffect(() => {
-            const editor = new Editor(root);
-            editor.load('./path_to_svg.svg');
+    // useLayoutEffect(() => {
+    //         const editor = new Editor(root);
+    //         editor.load('');
+    //
+    //         // return () => {
+    //         //     console.log('editor.isInit', editor.isInit)
+    //         //     if(editor.isInit){
+    //         //         console.log('rendered');
+    //         //         editor.onClose();
+    //         //     }
+    //         // };
+    // }, []);
 
-            return () => {
-                console.log('editor.isInit', editor.isInit)
-                if(editor.isInit){
-                    console.log('rendered');
-                    // editor.onClose();
-                }
-            };
-    }, []);
-
-    return <div>
+    return <div >
+        <div ref={editorContainer} />
+        <div><Canvas svgContent='' locale='ru' svgUpdate={ (svgContent: string) => {}} onClose={()=> {}} log={()=>{}} /></div>
+        <div>hello world</div>
     </div>;
 };
