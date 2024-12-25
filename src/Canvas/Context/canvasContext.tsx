@@ -8,7 +8,7 @@ interface CanvasState {
   | 'path'
   | 'line'
   | 'text'
-  selectedElement: HTMLElement | null | undefined; // Изменен тип для учета undefined
+  selectedElement: HTMLElement | null | undefined;
   multiselected: boolean;
   updated: boolean;
   zoom: number;

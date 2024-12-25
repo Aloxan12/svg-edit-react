@@ -7,6 +7,7 @@ import LeftBar from './LeftBar/LeftBar'
 import BottomBar from './BottomBar/BottomBar'
 import updateCanvas from './editor/updateCanvas'
 import { canvasContext, CanvasContextProvider } from './Context/canvasContext'
+import cls from './Canvas.module.scss'
 
 // Типы пропсов
 interface CanvasProps {
@@ -135,7 +136,7 @@ const Canvas: React.FC<CanvasProps> = ({ svgContent = '<svg width="640" height="
   updateContextPanel()
 
   return (
-      <>
+      <div className={cls.editorWrap}>
         <TopBar svgUpdate={svgUpdateHandler} onClose={onClose} />
         <LeftBar />
         <BottomBar />
@@ -145,7 +146,7 @@ const Canvas: React.FC<CanvasProps> = ({ svgContent = '<svg width="640" height="
           </div>
         </div>
         <input ref={textRef} onKeyUp={onKeyUp} type="text" style={{ position: 'absolute', left: '-9999px' }} />
-      </>
+      </div>
   )
 }
 
