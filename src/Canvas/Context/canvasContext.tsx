@@ -1,13 +1,11 @@
 import React, { ReactNode, useReducer, createContext, Dispatch } from 'react';
 import updateCanvas from '../editor/updateCanvas';
 
+type ModeType = 'select' | 'textedit' | 'ellipse' | 'rect' | 'path' | 'line' | 'text'
+
 // Типы для состояния Canvas
 interface CanvasState {
-  mode: 'select' | 'textedit' | 'ellipse'
-  | 'rect'
-  | 'path'
-  | 'line'
-  | 'text'
+  mode: ModeType
   selectedElement: HTMLElement | null | undefined;
   multiselected: boolean;
   updated: boolean;
@@ -23,11 +21,7 @@ interface CanvasState {
 interface Action {
   type: string;
   canvas?: any; // Это можно заменить на более точный тип, если известен тип canvas
-  mode?: 'select' | 'textedit' | 'ellipse'
-      | 'rect'
-      | 'path'
-      | 'line'
-      | 'text'
+  mode?: ModeType
   selectedElement?: HTMLElement | null;
   multiselected?: boolean;
   zoom?: number;
@@ -40,7 +34,6 @@ interface Action {
   config?: any
 }
 
-// Тип для пропсов компонента CanvasContextProvider
 interface CanvasContextProviderProps {
   children: ReactNode;
 }
@@ -59,13 +52,13 @@ const reducer = (state: CanvasState, action: Action): CanvasState => {
       }
       return { ...state, mode: action.mode || 'select' };
     case 'selectedElement':
-      newMode = (canvas?.getMode() === 'select') ? { mode: 'select' as "select" | "textedit" } : { mode: 'textedit' as "select" | "textedit" };
+      newMode = (canvas?.getMode() === 'select') ? { mode: 'select' as ModeType } : { mode: 'textedit' as ModeType };
       return {
         ...state,
         selectedElement: action.selectedElement ?? null,
         multiselected: action.multiselected ?? false,
         ...newMode
-      }; // Обработано undefined
+      };
       case 'zoom':
       if (canvas) {
         canvas.setZoom((action.zoom || 100) / 100);
@@ -97,10 +90,9 @@ const reducer = (state: CanvasState, action: Action): CanvasState => {
   }
 }
 
-// Начальное состояние Canvas
 const canvasInitialState: CanvasState = {
   mode: 'select',
-  selectedElement: null, // Здесь установлено значение null
+  selectedElement: null,
   multiselected: false,
   updated: false,
   zoom: 100,
@@ -108,13 +100,11 @@ const canvasInitialState: CanvasState = {
   layerName: '',
 }
 
-// Контекст для Canvas
 const canvasContext = createContext<[CanvasState, Dispatch<Action>]>([
   canvasInitialState,
   () => {},
 ]);
 
-// Компонент CanvasContextProvider
 const CanvasContextProvider: React.FC<CanvasContextProviderProps> = ({ children }) => (
     <canvasContext.Provider value={useReducer(reducer, canvasInitialState)}>
       {children}

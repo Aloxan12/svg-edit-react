@@ -5,16 +5,6 @@ import './LeftBar.less';
 
 import { canvasContext } from '../Context/canvasContext';
 
-// Типы для canvasState
-interface CanvasState {
-    mode: string;
-}
-
-// Типы для dispatch функции
-interface CanvasStateDispatcher {
-    (action: { type: string; mode: string }): void;
-}
-
 const LeftBar: React.FC = () => {
     const [canvasState, canvasStateDispatcher] = React.useContext(canvasContext);
     const { mode } = canvasState;
