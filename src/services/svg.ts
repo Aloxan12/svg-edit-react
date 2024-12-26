@@ -10,7 +10,7 @@ const saveOIAttr = (svgContent: any) => {
   return result['0'] ?? ''
 }
 
-const restoreOIAttr = (svgContent: any, attributes: any) => {
+const restoreOIAttr = (svgContent: string, attributes: any) => {
   if (!attributes) return svgContent
   const oiNameSpace = 'xmlns:oi="http://oimotion.optimistik.fr/namespace/svg/OIdata"'
   return svgContent.replace('<svg', `<svg ${oiNameSpace} ${attributes}`)

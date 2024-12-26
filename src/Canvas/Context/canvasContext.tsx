@@ -1,5 +1,6 @@
 import React, { ReactNode, useReducer, createContext, Dispatch } from 'react';
 import updateCanvas from '../editor/updateCanvas';
+import SvgCanvas from "@svgedit/svgcanvas";
 
 type ModeType = 'select' | 'textedit' | 'ellipse' | 'rect' | 'path' | 'line' | 'text'
 
@@ -14,13 +15,13 @@ interface CanvasState {
   layerName: string;
   svgcanvas?: HTMLElement | null;
   config?: any;
-  canvas?: any; // Это можно заменить на более точный тип, если известен тип canvas
+  canvas?: SvgCanvas;
 }
 
 // Типы для действий редьюсера
 interface Action {
   type: string;
-  canvas?: any; // Это можно заменить на более точный тип, если известен тип canvas
+  canvas?: SvgCanvas;
   mode?: ModeType
   selectedElement?: HTMLElement | null;
   multiselected?: boolean;
@@ -48,7 +49,7 @@ const reducer = (state: CanvasState, action: Action): CanvasState => {
       return { ...state, canvas: action.canvas, svgcanvas: action.svgcanvas, config: action.config };
     case 'mode':
       if (canvas) {
-        canvas.setMode(action.mode as string);
+        canvas.setMode(action.mode as ModeType);
       }
       return { ...state, mode: action.mode || 'select' };
     case 'selectedElement':

@@ -29,17 +29,17 @@ const TopBar: React.FC<TopBarProps> = ({ svgUpdate, onClose }) => {
     const elem = selectedElement as any;
     switch (type) {
       case 'font-family':
-        canvasState.canvas.setFontFamily(newVal);
+        canvas?.setFontFamily(newVal);
         break;
       case 'font-size':
-        canvasState.canvas.setFontSize(newVal);
+        canvas?.setFontSize(newVal);
         break;
       case 'id':
         // if the user is changing the id, then de-select the element first
         // change the ID, then re-select it with the new ID
-        canvasState.canvas.clearSelection();
+        canvas?.clearSelection();
         elem.id = newVal;
-        canvasState.canvas.addToSelection([elem], true);
+        canvas?.addToSelection([elem], true);
         break;
       default:
         console.error(`type (${type}) not supported`);

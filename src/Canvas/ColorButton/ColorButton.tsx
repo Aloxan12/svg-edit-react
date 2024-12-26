@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import colorString from 'color-string';
 // @ts-ignore
 import { SketchPicker } from 'react-color';
-// @ts-ignore
 import Icon from '../Icon/Icon';
 import './ColorButton.less';
 

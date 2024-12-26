@@ -1,5 +1,5 @@
 {
-  "name": "@svg-edit/svgedit-react",
+  "name": "svg-edit-react",
   "version": "0.1.0",
   "description": "Sample React Editor based on SVGEdit",
   "main": "dist/editor.js",
@@ -20,7 +20,6 @@
     "@svgedit/svgcanvas": "^7.2.2",
     "@vitejs/plugin-react": "^4.3.3",
     "color-string": "^1.9.1",
-    "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-color": "^2.19.3",
     "react-dom": "^18.3.1",

@@ -2,7 +2,7 @@ import React from 'react';
 import IconButton from '../../IconButton/IconButton';
 
 interface DelDupToolsProps {
-    canvas: {
+    canvas?: {
         deleteSelectedElements: () => void;
         cloneSelectedElements: (dx: number, dy: number) => void;
     } | null;

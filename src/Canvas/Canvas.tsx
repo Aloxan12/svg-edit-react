@@ -108,7 +108,6 @@ const Canvas: React.FC<CanvasProps> = ({ svgContent = '<svg width="640" height="
 
   useLayoutEffect(() => {
     const editorDom = svgcanvasRef.current
-    // @ts-ignore
     const canvas = new SvgCanvas(editorDom, config)
     updateCanvas(canvas, svgcanvasRef.current, config, true)
     canvas.textActions.setInputElem(textRef.current as HTMLInputElement)

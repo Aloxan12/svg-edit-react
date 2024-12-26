@@ -2,7 +2,7 @@ import React from 'react';
 import IconButton from '../../IconButton/IconButton';
 
 interface GroupToolsProps {
-  canvas: {
+  canvas?: {
     groupSelectedElements: () => void;
     ungroupSelectedElement: () => void;
   } | null;
