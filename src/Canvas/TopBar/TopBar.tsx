@@ -11,7 +11,7 @@ import AttributesTools from './AttributesTools/AttributesTools';
 
 import { canvasContext } from '../Context/canvasContext';
 
-import './TopBar.less';
+import './TopBar.scss';
 
 // Типы для props компонента
 interface TopBarProps {
@@ -116,9 +116,8 @@ const TopBar: React.FC<TopBarProps> = ({ svgUpdate, onClose }) => {
           <AttributesTools selectedElement={selectedElement} handleChange={handleChange} attributes={{}} />
       ) : null;
   }
-
   return (
-      <div className="top-bar">
+      <div className='top-bar'>
         <GenericTools
             canvas={canvas}
             canvasUpdated={updated}

@@ -1,5 +1,5 @@
 import React from 'react';
-import './AttributesTools.less';
+import cls from './AttributesTools.module.scss';
 import Input from './Input';
 
 interface AttributesToolsProps {
@@ -15,7 +15,7 @@ const AttributesTools: React.FC<AttributesToolsProps> = ({ selectedElement, hand
     };
 
     return (
-        <div className="OIe-attributes-tools">
+        <div className={cls.OIeAttributesTools}>
             <label key="tagName">
                 Tag:
                 <input type="text" name="tagName" readOnly value={selectedElement.tagName ?? ''} />

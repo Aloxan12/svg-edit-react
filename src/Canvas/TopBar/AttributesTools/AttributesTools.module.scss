@@ -1,13 +1,12 @@
-@import '../../../variables.less';
 
-.OIe-attributes-tools {
+.OIeAttributesTools {
   position: absolute;
   left: 300px;
   display: inline-flex;
   flex-flow: row wrap;
-  justify-content: flex-start; // start on primary axis  (row)
-  align-items: center; // center sur secondary axis (col)
-  background-color: @backgroundColor;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: var(--background-color);
   width: 600px;
   font-size: 10px;
   &>label {

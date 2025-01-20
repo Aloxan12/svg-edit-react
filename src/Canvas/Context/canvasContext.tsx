@@ -49,6 +49,7 @@ const reducer = (state: CanvasState, action: Action): CanvasState => {
       return { ...state, canvas: action.canvas, svgcanvas: action.svgcanvas, config: action.config };
     case 'mode':
       if (canvas) {
+        console.log('canvas store', canvas.getMode())
         canvas.setMode(action.mode as ModeType);
       }
       return { ...state, mode: action.mode || 'select' };

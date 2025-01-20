@@ -43,6 +43,11 @@ const LeftBar: React.FC = () => {
                 className={mode === 'text' ? 'selected' : ''}
                 onClick={() => setMode('text')}
             />
+            <IconButton
+                icon="Text 222"
+                className={mode === 'text' ? 'selected' : ''}
+                onClick={() => setMode('text')}
+            />
         </div>
     );
 };
