@@ -25,66 +25,68 @@ interface CanvasProps {
 //   canvas: SvgCanvas | null;
 // }
 
-const Canvas: React.FC<CanvasProps> = ({ svgContent = '<svg width="640" height="480" xmlns="http://www.w3.org/2000/svg"></svg>', locale, svgUpdate, onClose, log }) => {
-  const textRef = useRef<HTMLInputElement>(null)
-  const svgcanvasRef = useRef<HTMLDivElement>(null)
-  const oiAttributes = useRef(svg.saveOIAttr(svgContent))
-  const [canvasState, dispatchCanvasState] = useContext<any>(canvasContext)
-
-  log('Canvas', { locale, canvasState })
+const Canvas: React.FC<CanvasProps> = ({
+                                         svgContent = '<svg width="640" height="480" xmlns="http://www.w3.org/2000/svg"></svg>',
+                                         locale,
+                                         svgUpdate,
+                                         onClose,
+                                         log,
+                                       }) => {
+  const textRef = useRef<HTMLInputElement>(null);
+  const svgcanvasRef = useRef<SVGSVGElement>(null);
+  const oiAttributes = useRef(svg.saveOIAttr(svgContent));
+  const [canvasState, dispatchCanvasState] = useContext<any>(canvasContext);
+  log('Canvas', { locale, canvasState });
 
   const updateContextPanel = () => {
-    let elem = canvasState.selectedElement
-    // If element has just been deleted, consider it null
+    let elem = canvasState.selectedElement;
     if (elem && !elem.parentNode) {
-      elem = null
+      elem = null;
     }
     if (elem) {
-      const { tagName } = elem
-      if (tagName === 'text') {
-        // we should here adapt the context to a text field
-        if (textRef.current) {
-          textRef.current.value = elem.textContent || ''
-        }
+      const { tagName } = elem;
+      if (tagName === 'text' && textRef.current) {
+        textRef.current.value = elem.textContent || '';
       }
     }
-  }
+  };
 
   const selectedHandler = (win: any, elems: HTMLElement[]) => {
-    log('selectedHandler', elems)
-    const selectedElement = elems.length === 1 || !elems[1] ? elems[0] : null
-    const multiselected = elems.length >= 2 && !!elems[1]
-    dispatchCanvasState({
+    log('selectedHandler', elems);
+    const selectedElement = elems.length === 1 || !elems[1] ? elems[0] : null;
+    const multiselected = elems.length >= 2 && !!elems[1];
+    dispatchCanvasState?.({
       type: 'selectedElement',
       selectedElement,
       multiselected,
-    })
-  }
+    });
+  };
 
   const changedHandler = (win: any, elems: any[]) => {
-    log('changedHandler', { elems })
-    dispatchCanvasState({ type: 'updated', updated: true })
-  }
+    log('changedHandler', { elems });
+    dispatchCanvasState?.({ type: 'updated', updated: true });
+  };
 
   const contextsetHandler = (win: any, context: any) => {
-    dispatchCanvasState({ type: 'context', context })
-  }
+    dispatchCanvasState?.({ type: 'context', context });
+  };
 
   const svgUpdateHandler = (svgString: string) => {
-    svgUpdate(svg.restoreOIAttr(svgString, oiAttributes.current))
-    dispatchCanvasState({ type: 'updated', updated: false })
-  }
+    svgUpdate(svg.restoreOIAttr(svgString, oiAttributes.current));
+    dispatchCanvasState?.({ type: 'updated', updated: false });
+  };
 
   const onKeyUp = (event: any) => {
-    dispatchCanvasState({ type: 'setTextContent', text: event.target.value })
-  }
+    dispatchCanvasState?.({ type: 'setTextContent', text: event.target.value });
+  };
 
   const onKeyDown = (event: any) => {
-    if (event.key === 'Backspace' && event.target && (event.target as HTMLElement).tagName !== 'INPUT') {
-      event.preventDefault()
-      dispatchCanvasState({ type: 'deleteSelectedElements' })
+    const target = event.target as HTMLElement;
+    if (event.key === 'Backspace' && target?.tagName !== 'INPUT') {
+      event.preventDefault();
+      dispatchCanvasState?.({ type: 'deleteSelectedElements' });
     }
-  }
+  };
 
   const eventList: { [key: string]: Function } = {
     selected: selectedHandler,
@@ -104,55 +106,88 @@ const Canvas: React.FC<CanvasProps> = ({ svgContent = '<svg width="640" height="
     zoomDone: () => log('zoomDoneHandler'),
     updateCanvas: () => log('updateCanvasHandler'),
     extensionsAdded: () => log('extensionsAddedHandler'),
-  }
+  };
 
   useLayoutEffect(() => {
-    const editorDom = svgcanvasRef.current
-    const canvas = new SvgCanvas(editorDom, config)
-    updateCanvas(canvas, svgcanvasRef.current, config, true)
-    canvas.textActions.setInputElem(textRef.current as HTMLInputElement)
-    Object.entries(eventList).forEach(([eventName, eventHandler]) => {
-      canvas.bind(eventName, eventHandler)
-    })
-    dispatchCanvasState({ type: 'init', canvas, svgcanvas: editorDom, config })
-    document.addEventListener('keydown', onKeyDown)
-    return () => {
-      // cleanup function
-      document.removeEventListener('keydown', onKeyDown)
+    if (!svgcanvasRef.current) {
+      console.error('svgcanvasRef is not initialized');
+      return;
     }
-  }, [])
+    if (canvasState.canvas) {
+      console.log('Canvas is already initialized');
+      return;
+    }
+
+    const editorDom = svgcanvasRef.current;
+    const canvas = new SvgCanvas(editorDom, config);
+
+    if (!canvas || typeof canvas.bind !== 'function') {
+      console.error('Canvas or bind method is not available');
+      return;
+    }
+
+    updateCanvas(canvas, svgcanvasRef.current, config, true);
+    if (textRef.current) {
+      canvas.textActions.setInputElem(textRef.current as HTMLInputElement);
+    }
+    Object.entries(eventList).forEach(([eventName, eventHandler]) => {
+      canvas.bind(eventName, eventHandler);
+    });
+    console.log('init 22')
+    dispatchCanvasState?.({ type: 'init', canvas, svgcanvas: editorDom, config});
+
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, []);
 
   useLayoutEffect(() => {
-    log('new svgContent', svgContent.length)
-    if (!canvasState.canvas) return
-    oiAttributes.current = svg.saveOIAttr(svgContent)
-    canvasState.canvas.clear()
-    const success = canvasState.canvas.setSvgString(svgContent.replace(/'/g, "\\'"), true) // true => prevent undo
-    updateCanvas(canvasState.canvas, svgcanvasRef.current, config, true)
-    dispatchCanvasState({ type: 'updated', updated: false })
-  }, [svgContent, canvasState.canvas])
+    log('new svgContent', svgContent.length);
+    if (!canvasState.canvas) {
+      return;
+    }
+    if (!svgContent || typeof svgContent !== 'string') {
+      console.error('Invalid SVG content:', svgContent);
+      return;
+    }
+    if (canvasState.canvas) {
+      console.log('Canvas is already initialized');
+      return;
+    }
 
-  updateContextPanel()
+    oiAttributes.current = svg.saveOIAttr(svgContent);
+    canvasState.canvas.clear();
+    const success = canvasState.canvas.setSvgString(svgContent.replace(/'/g, "\\'"), true);
+    if (!success) {
+      console.error('Failed to set SVG content');
+    }
+    updateCanvas(canvasState.canvas, svgcanvasRef.current, config, true);
+    dispatchCanvasState?.({ type: 'updated', updated: false });
+  }, [svgContent]);
+
+  updateContextPanel();
 
   return (
       <div className={cls.editorWrap}>
         <TopBar svgUpdate={svgUpdateHandler} onClose={onClose} />
-        <LeftBar />
-        <BottomBar />
-        <div className="OIe-editor" role="main">
-          <div className="workarea">
-            <div ref={svgcanvasRef} className="svgcanvas" style={{ position: 'relative' }} />
+          <div className={cls.editor} role="main">
+            <LeftBar />
+            <div className={`${cls.workarea}`}>
+              <svg ref={svgcanvasRef} className={`${cls.svgcanvas}`} />
+            </div>
           </div>
-        </div>
+        <BottomBar />
         <input ref={textRef} onKeyUp={onKeyUp} type="text" style={{ position: 'absolute', left: '-9999px' }} />
       </div>
-  )
-}
+  );
+};
 
 const CanvasWithContext: React.FC<CanvasProps> = (props) => (
     <CanvasContextProvider>
       <Canvas {...props} />
     </CanvasContextProvider>
-)
+);
 
-export default CanvasWithContext
+export default CanvasWithContext;

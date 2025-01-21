@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 // @ts-ignore
 import colorString from 'color-string';
-// @ts-ignore
-import { SketchPicker } from 'react-color';
 import Icon from '../Icon/Icon';
 import './ColorButton.less';
+import {RgbStringColorPicker} from "react-colorful";
+import {useOutsideClick} from "../../hooks/useOutsideClick";
 
 // Типы пропсов для компонента ColorButton
 interface ColorButtonProps {
@@ -15,31 +15,34 @@ interface ColorButtonProps {
 
 const ColorButton: React.FC<ColorButtonProps> = ({ onChange, value = '', title = '' }) => {
   const [display, setDisplay] = useState<boolean>(false);
-
+  const ref = useRef<HTMLDivElement | null>(null)
   const handleClick = () => setDisplay(!display);
+  const closeHandleClick = () => setDisplay(false);
 
-  const onChangeComplete = (color: any) => {
-    onChange(color?.hex);
-    setDisplay(false);
+  const onChangeComplete = (color: string) => {
+      console.log('color', color)
+    onChange(color);
   };
 
   const rgb = colorString.get.rgb(value) || [255, 255, 255]; // Default to white if value is invalid
   const hexColor = colorString.to.hex(rgb);
 
+    useOutsideClick(ref, closeHandleClick, display)
+    console.log('value', value)
   return (
-      <div>
+      <div ref={ref}>
         {display && rgb && (
-            <SketchPicker
+            <div
                 className="OIe-tools-color-panel"
-                color={hexColor}
-                onChangeComplete={onChangeComplete}
-            />
+            >
+                <RgbStringColorPicker color={value} onChange={onChangeComplete}/>
+            </div>
         )}
-        <Icon name={title} className="OIe-tools-color-title" />
-        <div
-            className="OIe-tools-color-sample"
-            onClick={handleClick}
-            style={{ backgroundColor: hexColor }}
+          <Icon name={title} className="OIe-tools-color-title"/>
+          <div
+              className="OIe-tools-color-sample"
+              onClick={handleClick}
+              style={{ backgroundColor: hexColor }}
         />
       </div>
   );

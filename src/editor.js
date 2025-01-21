@@ -3,7 +3,7 @@ Optimistik
 SVG-Edit-react
 */
 
-import './editor.less'
+import './styles/global.scss'
 import Editor from './editor.class'
 
 // make the class available globally in the browser

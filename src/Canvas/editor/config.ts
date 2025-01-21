@@ -26,7 +26,6 @@ const config = {
   no_save_warning: false,
   // PATH CONFIGURATION
   // The following path configuration items are disallowed in the URL (as should any future path configurations)
-  langPath: 'locale/', // Default will be changed if this is a non-modular load
   extPath: 'extensions/', // Default will be changed if this is a non-modular load
   canvgPath: 'canvg/', // Default will be changed if this is a non-modular load
   jspdfPath: 'jspdf/', // Default will be changed if this is a non-modular load

@@ -2,4 +2,31 @@
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  max-height: 100dvh;
+}
+.contentWrap{
+  display: flex;
+}
+.editor {
+  display: flex;
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  color: #000000;
+}
+
+.workarea {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  text-align: center;
+}
+
+.svgcanvas {
+  height: 100%;
+  width: 100%;
+  max-height: calc(100dvh - 60px);
+  background-color: white;
+  border: none;
 }

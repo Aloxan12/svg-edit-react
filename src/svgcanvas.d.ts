@@ -1,6 +1,6 @@
 declare module '@svgedit/svgcanvas' {
     class SvgCanvas {
-        constructor(editorDom: HTMLElement | null, config: any);
+        constructor(editorDom: SVGSVGElement | null, config: any);
 
         contentW: number
         contentH: number

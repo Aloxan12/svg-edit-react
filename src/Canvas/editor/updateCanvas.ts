@@ -3,9 +3,10 @@ import SvgCanvas from "@svgedit/svgcanvas";
 
 const updateCanvas = (svgCanvas: SvgCanvas, cnvs: any, curConfig: any, center: any, newCtr: any = {}) => {
   // workarea node is the parent of the svg canvas
-  const workarea = cnvs.parentNode
+  const workarea = cnvs?.parentNode
   //  let w = workarea.width(), h = workarea.height();
-  let { width: w, height: h } = workarea.getBoundingClientRect()
+  console.log('workarea', workarea)
+  let { width: w, height: h } = workarea?.getBoundingClientRect()
   const wOrig = w
   const hOrig = h
   const oldCtr = {

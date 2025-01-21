@@ -23,7 +23,6 @@ const TopBar: React.FC<TopBarProps> = ({ svgUpdate, onClose }) => {
   const [canvasState] = useContext(canvasContext);
   const { canvas, selectedElement, mode, updated } = canvasState;
 
-  console.info(mode, selectedElement?.tagName);
 
   const handleChange = (type: string, newVal: string) => {
     const elem = selectedElement as any;
