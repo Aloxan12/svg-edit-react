@@ -20,7 +20,7 @@ const config = {
   initOpacity: 1,
   colorPickerCSS: null,
   initTool: 'select',
-  exportWindowType: 'new', // 'same' (todo: also support 'download')
+  exportWindowType: 'svg', // 'same' (todo: also support 'download')
   wireframe: false,
   showlayers: false,
   no_save_warning: false,
@@ -34,7 +34,9 @@ const config = {
   extIconsPath: 'extensions/',
   // DOCUMENT PROPERTIES
   // Change the following to a preference (already in the Document Properties dialog)?
-  dimensions: [640, 480],
+  dimensions: ['0px', '0px'],
+  // dimensions: [640, 480],
+  // dimensions: [0, 0],
   // EDITOR OPTIONS
   // Change the following to preferences (already in the Editor Options dialog)?
   gridSnapping: false,

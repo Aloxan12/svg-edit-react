@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useLayoutEffect } from 'react'
+import React, {useRef, useContext, useLayoutEffect, useMemo} from 'react'
 import SvgCanvas from '@svgedit/svgcanvas'
 import svg from '../services/svg'
 import config from './editor/config'
@@ -36,6 +36,7 @@ const Canvas: React.FC<CanvasProps> = ({
   const svgcanvasRef = useRef<SVGSVGElement>(null);
   const oiAttributes = useRef(svg.saveOIAttr(svgContent));
   const [canvasState, dispatchCanvasState] = useContext<any>(canvasContext);
+
   log('Canvas', { locale, canvasState });
 
   const updateContextPanel = () => {
@@ -86,6 +87,11 @@ const Canvas: React.FC<CanvasProps> = ({
       event.preventDefault();
       dispatchCanvasState?.({ type: 'deleteSelectedElements' });
     }
+    // // Удаление с клавишей Delete
+    // if (event.key === 'Delete' && target?.tagName !== 'INPUT') {
+    //   event.preventDefault();
+    //   dispatchCanvasState?.({ type: 'deleteSelectedElements' });
+    // }
   };
 
   const eventList: { [key: string]: Function } = {
@@ -133,7 +139,6 @@ const Canvas: React.FC<CanvasProps> = ({
     Object.entries(eventList).forEach(([eventName, eventHandler]) => {
       canvas.bind(eventName, eventHandler);
     });
-    console.log('init 22')
     dispatchCanvasState?.({ type: 'init', canvas, svgcanvas: editorDom, config});
 
     document.addEventListener('keydown', onKeyDown);
@@ -166,7 +171,6 @@ const Canvas: React.FC<CanvasProps> = ({
     updateCanvas(canvasState.canvas, svgcanvasRef.current, config, true);
     dispatchCanvasState?.({ type: 'updated', updated: false });
   }, [svgContent]);
-
   updateContextPanel();
 
   return (
@@ -175,10 +179,10 @@ const Canvas: React.FC<CanvasProps> = ({
           <div className={cls.editor} role="main">
             <LeftBar />
             <div className={`${cls.workarea}`}>
-              <svg ref={svgcanvasRef} className={`${cls.svgcanvas}`} />
+                <svg x='0px' y='0px' ref={svgcanvasRef} className={`${cls.svgcanvas}`}/>
             </div>
           </div>
-        <BottomBar />
+        <BottomBar/>
         <input ref={textRef} onKeyUp={onKeyUp} type="text" style={{ position: 'absolute', left: '-9999px' }} />
       </div>
   );

@@ -1,14 +1,9 @@
 import React from 'react';
 import IconButton from '../../IconButton/IconButton';
+import SvgCanvas from "@svgedit/svgcanvas";
 
 interface GenericToolsProps {
-    canvas?: {
-        undoMgr: {
-            undo: () => void;
-            redo: () => void;
-        };
-        getSvgString: () => string;
-    } | null;
+    canvas?: SvgCanvas | null;
     svgUpdate: (svgString: string) => void;
     canvasUpdated: boolean;
     onClose: () => void;
@@ -26,7 +21,7 @@ const GenericTools: React.FC<GenericToolsProps> = ({ canvas, canvasUpdated, svgU
         // populateLayers()
     };
 
-    const onClickClose = () => {
+    const onSaveAsSvg = () => {
         if (canvasUpdated) {
             // eslint-disable-next-line no-alert
             if (!window.confirm('A change was not saved, do you really want to exit?')) return;
@@ -34,9 +29,43 @@ const GenericTools: React.FC<GenericToolsProps> = ({ canvas, canvasUpdated, svgU
         onClose();
     };
 
+    const onClickClose = () => {
+        if (canvasUpdated) {
+            // eslint-disable-next-line no-alert
+            if (!window.confirm('A change was not saved, do you really want to exit?')) return;
+        }
+        onClose();
+    };
+    const svgSaveFile = () => {
+        const svgElement = document.querySelector('#svgroot');
+        if (!svgElement) {
+            console.error('SVG element not found!');
+            return;
+        }
+        canvas?.clearSelection()
+        const svgContent = svgElement.outerHTML;
+
+        const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+
+        // Создать временную ссылку для скачивания
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'image.svg';
+        document.body.appendChild(link);
+
+        // Инициировать скачивание
+        link.click();
+
+        // Удалить временную ссылку
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    };
+
     return (
         <>
             <IconButton icon="Close" onClick={onClickClose} />
+            <IconButton icon="Save" onClick={svgSaveFile} />
             <IconButton
                 icon="Save"
                 className={canvasUpdated ? 'enabled' : 'disabled'}

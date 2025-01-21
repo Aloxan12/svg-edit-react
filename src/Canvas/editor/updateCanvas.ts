@@ -5,7 +5,6 @@ const updateCanvas = (svgCanvas: SvgCanvas, cnvs: any, curConfig: any, center: a
   // workarea node is the parent of the svg canvas
   const workarea = cnvs?.parentNode
   //  let w = workarea.width(), h = workarea.height();
-  console.log('workarea', workarea)
   let { width: w, height: h } = workarea?.getBoundingClientRect()
   const wOrig = w
   const hOrig = h
@@ -13,12 +12,12 @@ const updateCanvas = (svgCanvas: SvgCanvas, cnvs: any, curConfig: any, center: a
     x: workarea.scrollLeft + wOrig / 2,
     y: workarea.scrollTop + hOrig / 2,
   }
+  console.log('curConfig', curConfig)
   // multi: The minimum area visible outside the canvas, as a multiple of the image dimensions.
   const multi = curConfig.canvas_expansion
   const zoom = svgCanvas.getZoom()
   w = Math.max(wOrig, svgCanvas.contentW * zoom * multi)
   h = Math.max(hOrig, svgCanvas.contentH * zoom * multi)
-
   if (w === wOrig && h === hOrig) {
     workarea.style.overflow = 'hidden'
   } else {
@@ -32,7 +31,6 @@ const updateCanvas = (svgCanvas: SvgCanvas, cnvs: any, curConfig: any, center: a
   const oldCanX = cw / 2
   cnvs.style.width = w
   cnvs.style.height = h
-
   const newCanY = h / 2
   const newCanX = w / 2
   const offset = svgCanvas.updateCanvas(w, h)

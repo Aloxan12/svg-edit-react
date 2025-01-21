@@ -20,7 +20,6 @@ const ColorButton: React.FC<ColorButtonProps> = ({ onChange, value = '', title =
   const closeHandleClick = () => setDisplay(false);
 
   const onChangeComplete = (color: string) => {
-      console.log('color', color)
     onChange(color);
   };
 
@@ -28,7 +27,6 @@ const ColorButton: React.FC<ColorButtonProps> = ({ onChange, value = '', title =
   const hexColor = colorString.to.hex(rgb);
 
     useOutsideClick(ref, closeHandleClick, display)
-    console.log('value', value)
   return (
       <div ref={ref}>
         {display && rgb && (

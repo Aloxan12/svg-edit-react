@@ -41,7 +41,6 @@ const BottomBar: React.FC = () => {
   // Цвета выбранного элемента
   const selectedFillColor = selectedElement?.getAttribute('fill') || '';
   const selectedStrokeColor = selectedElement?.getAttribute('stroke') || '';
-  console.log('selectedFillColor', selectedFillColor)
   // Обработчик изменения зума
   const handleZoom = (newZoom: string) => {
     canvasStateDispatcher({ type: 'zoom', zoom: Number(newZoom) });

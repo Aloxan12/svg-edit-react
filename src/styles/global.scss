@@ -1,4 +1,4 @@
-@import "./variables";
+@use "./variables";
 
 #root, body{
   padding: 0;
@@ -10,9 +10,15 @@
 }
 
 #canvasBackground > rect {
-  display: none;
-  border: none !important;
-  fill: #fff !important;
+}
+
+#svgroot, #canvasBackground {
+  position: absolute;
+  fill: white;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 *:focus {

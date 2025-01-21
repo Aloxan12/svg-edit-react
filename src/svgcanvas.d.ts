@@ -17,7 +17,7 @@ declare module '@svgedit/svgcanvas' {
         };
         getSvgString: () => string;
 
-    textActions: {
+        textActions: {
             setInputElem: (inputElem: HTMLInputElement) => void;
         };
 
