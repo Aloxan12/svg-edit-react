@@ -4,6 +4,7 @@ import Canvas from "./Canvas/Canvas";
 
 export const App = () => {
 
+
     // useLayoutEffect(() => {
     //         const editor = new Editor(root);
     //         editor.load('');
@@ -17,7 +18,9 @@ export const App = () => {
     //         // };
     // }, []);
 
+
+
     return <div >
-        <div><Canvas svgContent='' locale='ru' svgUpdate={ (svgContent: string) => {}} onClose={()=> {}} log={()=>{}} /></div>
+        <div><Canvas svgContent={''} locale='ru' svgUpdate={ (svgContent: string) => {}} onClose={()=> {}} log={()=>{}} /></div>
     </div>;
 };

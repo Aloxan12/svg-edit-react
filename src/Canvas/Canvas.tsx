@@ -1,4 +1,4 @@
-import React, {useRef, useContext, useLayoutEffect, useMemo} from 'react'
+import React, {useRef, useContext, useLayoutEffect} from 'react'
 import SvgCanvas from '@svgedit/svgcanvas'
 import svg from '../services/svg'
 import config from './editor/config'
@@ -26,19 +26,17 @@ interface CanvasProps {
 // }
 
 const Canvas: React.FC<CanvasProps> = ({
-                                         svgContent = '<svg width="640" height="480" xmlns="http://www.w3.org/2000/svg"></svg>',
+                                         svgContent = '<svg x="0px" y="0px" width="640" height="480" xmlns="http://www.w3.org/2000/svg"></svg>',
                                          locale,
                                          svgUpdate,
                                          onClose,
                                          log,
                                        }) => {
   const textRef = useRef<HTMLInputElement>(null);
-  const svgcanvasRef = useRef<SVGSVGElement>(null);
+  const svgcanvasRef = useRef<HTMLCanvasElement>(null);
   const oiAttributes = useRef(svg.saveOIAttr(svgContent));
   const [canvasState, dispatchCanvasState] = useContext<any>(canvasContext);
-
   log('Canvas', { locale, canvasState });
-
   const updateContextPanel = () => {
     let elem = canvasState.selectedElement;
     if (elem && !elem.parentNode) {
@@ -51,7 +49,7 @@ const Canvas: React.FC<CanvasProps> = ({
       }
     }
   };
-
+  console.log('canvasState', canvasState)
   const selectedHandler = (win: any, elems: HTMLElement[]) => {
     log('selectedHandler', elems);
     const selectedElement = elems.length === 1 || !elems[1] ? elems[0] : null;
@@ -87,11 +85,11 @@ const Canvas: React.FC<CanvasProps> = ({
       event.preventDefault();
       dispatchCanvasState?.({ type: 'deleteSelectedElements' });
     }
-    // // Удаление с клавишей Delete
-    // if (event.key === 'Delete' && target?.tagName !== 'INPUT') {
-    //   event.preventDefault();
-    //   dispatchCanvasState?.({ type: 'deleteSelectedElements' });
-    // }
+    // Удаление с клавишей Delete
+    if (event.key === 'Delete' && target?.tagName !== 'INPUT') {
+      event.preventDefault();
+      dispatchCanvasState?.({ type: 'deleteSelectedElements' });
+    }
   };
 
   const eventList: { [key: string]: Function } = {
@@ -153,7 +151,7 @@ const Canvas: React.FC<CanvasProps> = ({
     if (!canvasState.canvas) {
       return;
     }
-    if (!svgContent || typeof svgContent !== 'string') {
+    if (!svgContent) {
       console.error('Invalid SVG content:', svgContent);
       return;
     }
@@ -179,7 +177,7 @@ const Canvas: React.FC<CanvasProps> = ({
           <div className={cls.editor} role="main">
             <LeftBar />
             <div className={`${cls.workarea}`}>
-                <svg x='0px' y='0px' ref={svgcanvasRef} className={`${cls.svgcanvas}`}/>
+                <canvas ref={svgcanvasRef} className={`${cls.svgcanvas}`} />
             </div>
           </div>
         <BottomBar/>

@@ -28,7 +28,7 @@ const ColorButton: React.FC<ColorButtonProps> = ({ onChange, value = '', title =
 
     useOutsideClick(ref, closeHandleClick, display)
   return (
-      <div ref={ref}>
+      <div ref={ref} className='color-panel-wrap'>
         {display && rgb && (
             <div
                 className="OIe-tools-color-panel"

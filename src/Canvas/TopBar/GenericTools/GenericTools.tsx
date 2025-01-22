@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import IconButton from '../../IconButton/IconButton';
 import SvgCanvas from "@svgedit/svgcanvas";
 
@@ -11,6 +11,9 @@ interface GenericToolsProps {
 }
 
 const GenericTools: React.FC<GenericToolsProps> = ({ canvas, canvasUpdated, svgUpdate, onClose }) => {
+
+    const [xmlData, setXmlData] = useState<Document | null>(null);
+
     const onClickUndo = () => {
         canvas?.undoMgr.undo();
         // populateLayers()
@@ -62,9 +65,27 @@ const GenericTools: React.FC<GenericToolsProps> = ({ canvas, canvasUpdated, svgU
         URL.revokeObjectURL(url);
     };
 
+
+    useEffect(() => {
+        const fetchXml = async () => {
+            // Путь будет работать, если файл находится в public
+            const response = await fetch('/ex1.svg');
+            const text = await response.text();
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(text, 'image/svg+xml');
+            setXmlData(xml);
+        };
+        fetchXml().catch(err => console.log(err));
+    }, []);
+
+    const onUploadSvg = () =>{
+        const svgString = xmlData ? new XMLSerializer().serializeToString(xmlData) : '';
+        canvas?.setSvgString(svgString)
+    }
+
     return (
         <>
-            <IconButton icon="Close" onClick={onClickClose} />
+            <IconButton icon="Close" onClick={onUploadSvg} />
             <IconButton icon="Save" onClick={svgSaveFile} />
             <IconButton
                 icon="Save"

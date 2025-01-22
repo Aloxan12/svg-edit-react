@@ -22,8 +22,11 @@ div.OIe-tools-color {
   left: -1px;
   top: 5px;
 }
-.OIe-tools-color-panel {
-  z-index: 10;
-  position: fixed;
-  bottom: 40px;
+.color-panel-wrap{
+  position: relative;
+  .OIe-tools-color-panel {
+    z-index: 10;
+    position: absolute;
+    bottom: 40px;
+  }
 }

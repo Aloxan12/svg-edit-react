@@ -12,7 +12,7 @@ interface EllipseToolsProps {
 const EllipseTools: React.FC<EllipseToolsProps> = ({ selectedElement }) => (
     <AttributesTools
         selectedElement={selectedElement}
-        handleChange={() => {}}
+        handleChange={(value) => console.log('value', value)}
         attributes={{
             cx: 'readOnly',
             cy: 'readOnly',

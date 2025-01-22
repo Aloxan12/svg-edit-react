@@ -17,19 +17,19 @@
   <body>
     <h3>SVG-Edit.react sample HTML</h3>
     <div id="editcontainer"></div>
-    <script>
-      const element = document.getElementById("editcontainer")
-      // this function is called when the user save his work.
-      function logSvg(content) {
-        console.log(content)
-      }
-      const editor = new Editor(element)
-      // define a save Handler (only log to the console for this sample)
-      editor.configure( 'saveHandler', logSvg )
-      // load a SVG in the editor
-      const svgContent = fetch("./arbelos.svg")
-        .then(response => response.text())
-        .then(svgContent => editor.load(svgContent))
-    </script>
+<!--    <script>-->
+<!--      const element = document.getElementById("editcontainer")-->
+<!--      // this function is called when the user save his work.-->
+<!--      function logSvg(content) {-->
+<!--        console.log(content)-->
+<!--      }-->
+<!--      const editor = new Editor(element)-->
+<!--      // define a save Handler (only log to the console for this sample)-->
+<!--      editor.configure( 'saveHandler', logSvg )-->
+<!--      // load a SVG in the editor-->
+<!--      const svgContent = fetch("./arbelos.svg")-->
+<!--        .then(response => response.text())-->
+<!--        .then(svgContent => editor.load(svgContent))-->
+<!--    </script>-->
   </body>
 </html>

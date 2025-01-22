@@ -1,6 +1,6 @@
 declare module '@svgedit/svgcanvas' {
     class SvgCanvas {
-        constructor(editorDom: SVGSVGElement | null, config: any);
+        constructor(editorDom: HTMLCanvasElement | null, config: any);
 
         contentW: number
         contentH: number
@@ -43,6 +43,7 @@ declare module '@svgedit/svgcanvas' {
             getCurrentLayerName(): void
         }
         deleteSelectedElements(): void
+        setSvgString(xmlString: string, preventUndo?:any): void
     }
 
     export = SvgCanvas;
