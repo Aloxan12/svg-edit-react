@@ -12,7 +12,7 @@ interface GenericToolsProps {
 
 const GenericTools: React.FC<GenericToolsProps> = ({ canvas, canvasUpdated, svgUpdate, onClose }) => {
 
-    const [xmlData, setXmlData] = useState<Document | null>(null);
+    const [xmlData, setXmlData] = useState<string | null>(null);
 
     const onClickUndo = () => {
         canvas?.undoMgr.undo();
@@ -22,14 +22,6 @@ const GenericTools: React.FC<GenericToolsProps> = ({ canvas, canvasUpdated, svgU
     const onClickRedo = () => {
         canvas?.undoMgr.redo();
         // populateLayers()
-    };
-
-    const onSaveAsSvg = () => {
-        if (canvasUpdated) {
-            // eslint-disable-next-line no-alert
-            if (!window.confirm('A change was not saved, do you really want to exit?')) return;
-        }
-        onClose();
     };
 
     const onClickClose = () => {
@@ -69,17 +61,16 @@ const GenericTools: React.FC<GenericToolsProps> = ({ canvas, canvasUpdated, svgU
     useEffect(() => {
         const fetchXml = async () => {
             // Путь будет работать, если файл находится в public
-            const response = await fetch('/ex1.svg');
+            const response = await fetch('/humberger.svg');
             const text = await response.text();
-            const parser = new DOMParser();
-            const xml = parser.parseFromString(text, 'image/svg+xml');
-            setXmlData(xml);
+            setXmlData(text);
         };
         fetchXml().catch(err => console.log(err));
     }, []);
 
     const onUploadSvg = () =>{
-        const svgString = xmlData ? new XMLSerializer().serializeToString(xmlData) : '';
+        console.log('xmlData', xmlData)
+        const svgString = xmlData ? xmlData : '';
         canvas?.setSvgString(svgString)
     }
 

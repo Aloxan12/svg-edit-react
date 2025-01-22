@@ -5,14 +5,14 @@ interface PathToolsProps {
     canvas?: any;
     canvasUpdated?: boolean;
     selectedElement: HTMLElement;
-    svgUpdate?: (svgString: string) => void
+    svgUpdate: (svgString: string) => void
     onClose?: () => void
 }
 
-const PathTools: React.FC<PathToolsProps> = ({ selectedElement }) => (
+const PathTools: React.FC<PathToolsProps> = ({ selectedElement, svgUpdate }) => (
     <AttributesTools
         selectedElement={selectedElement}
-        handleChange={() => {}}
+        handleChange={svgUpdate}
         attributes={{ d: 'readOnly' }}
     />
 );

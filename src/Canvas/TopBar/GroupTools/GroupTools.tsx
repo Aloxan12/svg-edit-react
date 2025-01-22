@@ -1,11 +1,9 @@
 import React from 'react';
 import IconButton from '../../IconButton/IconButton';
+import SvgCanvas from "@svgedit/svgcanvas";
 
 interface GroupToolsProps {
-  canvas?: {
-    groupSelectedElements: () => void;
-    ungroupSelectedElement: () => void;
-  } | null;
+  canvas?: SvgCanvas | null
   selectedElement?: HTMLElement | null;
   multiselected: boolean;
 }
@@ -27,6 +25,34 @@ const GroupTools: React.FC<GroupToolsProps> = ({ canvas, selectedElement, multis
                 canvas.ungroupSelectedElement();
               }}
           />
+      )}
+      {multiselected && canvas && (
+          <>
+            <IconButton
+                icon="AlignTop"
+                onClick={() => {
+                  canvas.alignSelectedElements('top');
+                }}
+            />
+            <IconButton
+                icon="AlignRight"
+                onClick={() => {
+                  canvas.alignSelectedElements('right');
+                }}
+            />
+            <IconButton
+                icon="AlignBottom"
+                onClick={() => {
+                  canvas.alignSelectedElements('bottom');
+                }}
+            />
+            <IconButton
+                icon="AlignLeft"
+                onClick={() => {
+                  canvas.alignSelectedElements('left');
+                }}
+            />
+          </>
       )}
     </>
 );

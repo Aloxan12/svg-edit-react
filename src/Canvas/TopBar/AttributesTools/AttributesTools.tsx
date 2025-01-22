@@ -14,15 +14,21 @@ const AttributesTools: React.FC<AttributesToolsProps> = ({ selectedElement, hand
         return Math.round((Number(val) + Number.EPSILON) * 1000) / 1000;
     };
 
+    const onChangeHandle = (name: string, value: string) =>{
+        console.log('result', name, value);
+        selectedElement.setAttribute(name, value);
+        handleChange(name, value);
+    }
+
     return (
         <div className={cls.OIeAttributesTools}>
             <label key="tagName">
                 Tag:
-                <input type="text" name="tagName" readOnly value={selectedElement.tagName ?? ''} />
+                <input type="text" name="tagName" disabled readOnly value={selectedElement.tagName ?? ''} />
             </label>
             <label key="id">
                 Id:
-                <Input type="text" name="id" defaultValue={selectedElement.id ?? ''} handleChange={handleChange} />
+                <Input type="text" name="id" defaultValue={selectedElement.id ?? ''} disabled handleChange={handleChange} />
             </label>
             {Object.entries(attributes).map(([attribute, type]) => {
                 const value = round(selectedElement.getAttribute(attribute)) ?? '';
@@ -69,7 +75,7 @@ const AttributesTools: React.FC<AttributesToolsProps> = ({ selectedElement, hand
                 return (
                     <label key={attribute}>
                         {`${attribute}:`}
-                        <input type="text" name={attribute} readOnly value={value} />
+                        <input type="text" disabled={attribute.toLowerCase() === 'id'} name={attribute} onChange={(e)=> onChangeHandle(attribute, e.target.value)} value={value} />
                     </label>
                 );
             })}

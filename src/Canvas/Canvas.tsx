@@ -33,7 +33,7 @@ const Canvas: React.FC<CanvasProps> = ({
                                          log,
                                        }) => {
   const textRef = useRef<HTMLInputElement>(null);
-  const svgcanvasRef = useRef<HTMLCanvasElement>(null);
+  const svgcanvasRef = useRef<SVGSVGElement>(null);
   const oiAttributes = useRef(svg.saveOIAttr(svgContent));
   const [canvasState, dispatchCanvasState] = useContext<any>(canvasContext);
   log('Canvas', { locale, canvasState });
@@ -49,7 +49,6 @@ const Canvas: React.FC<CanvasProps> = ({
       }
     }
   };
-  console.log('canvasState', canvasState)
   const selectedHandler = (win: any, elems: HTMLElement[]) => {
     log('selectedHandler', elems);
     const selectedElement = elems.length === 1 || !elems[1] ? elems[0] : null;
@@ -169,6 +168,7 @@ const Canvas: React.FC<CanvasProps> = ({
     updateCanvas(canvasState.canvas, svgcanvasRef.current, config, true);
     dispatchCanvasState?.({ type: 'updated', updated: false });
   }, [svgContent]);
+
   updateContextPanel();
 
   return (
@@ -177,7 +177,7 @@ const Canvas: React.FC<CanvasProps> = ({
           <div className={cls.editor} role="main">
             <LeftBar />
             <div className={`${cls.workarea}`}>
-                <canvas ref={svgcanvasRef} className={`${cls.svgcanvas}`} />
+                <svg ref={svgcanvasRef} className={`${cls.svgcanvas}`} />
             </div>
           </div>
         <BottomBar/>

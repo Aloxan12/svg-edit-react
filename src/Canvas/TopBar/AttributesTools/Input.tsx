@@ -5,9 +5,10 @@ interface InputProps {
   defaultValue: string;
   handleChange: (name: string, value: string) => void;
   name: string;
+  disabled?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({ type, defaultValue, handleChange, name }) => {
+const Input: React.FC<InputProps> = ({ type, defaultValue, handleChange, name, disabled }) => {
   const [value, setValue] = useState<string>(defaultValue);
 
   return (
@@ -17,6 +18,7 @@ const Input: React.FC<InputProps> = ({ type, defaultValue, handleChange, name })
           onBlur={(e) => handleChange(name, e.target.value)}
           type={type}
           name={name}
+          disabled={disabled}
       />
   );
 };

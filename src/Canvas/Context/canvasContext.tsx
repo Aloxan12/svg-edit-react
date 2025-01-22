@@ -2,7 +2,7 @@ import React, { ReactNode, useReducer, createContext, Dispatch } from 'react';
 import updateCanvas from '../editor/updateCanvas';
 import SvgCanvas from "@svgedit/svgcanvas";
 
-type ModeType = 'select' | 'textedit' | 'ellipse' | 'rect' | 'path' | 'line' | 'text'
+export type ModeType = 'select' | 'textedit' | 'ellipse' | 'rect' | 'path' | 'line' | 'text'
 
 // Типы для состояния Canvas
 interface CanvasState {
@@ -48,13 +48,13 @@ const reducer = (state: CanvasState, action: Action): CanvasState => {
     case 'init':
       return { ...state, canvas: action.canvas, svgcanvas: action.svgcanvas, config: action.config };
     case 'mode':
-      if (canvas) {
-        console.log('canvas store', canvas.getMode())
-        canvas.setMode(action.mode as ModeType);
+      if (canvas && action.mode) {
+        canvas.setMode(action.mode);
       }
       return { ...state, mode: action.mode || 'select' };
     case 'selectedElement':
       newMode = (canvas?.getMode() === 'select') ? { mode: 'select' as ModeType } : { mode: 'textedit' as ModeType };
+      console.log('newMode', newMode)
       return {
         ...state,
         selectedElement: action.selectedElement ?? null,

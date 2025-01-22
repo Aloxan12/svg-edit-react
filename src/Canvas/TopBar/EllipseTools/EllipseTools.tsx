@@ -9,17 +9,20 @@ interface EllipseToolsProps {
     onClose: () => void
 }
 
-const EllipseTools: React.FC<EllipseToolsProps> = ({ selectedElement }) => (
-    <AttributesTools
-        selectedElement={selectedElement}
-        handleChange={(value) => console.log('value', value)}
-        attributes={{
-            cx: 'readOnly',
-            cy: 'readOnly',
-            rx: 'readOnly',
-            ry: 'readOnly',
-        }}
-    />
-);
+const EllipseTools: React.FC<EllipseToolsProps> = ({ selectedElement, svgUpdate }) => {
+    console.log('selectedElement', selectedElement)
+    return (
+        <AttributesTools
+            selectedElement={selectedElement}
+            handleChange={svgUpdate}
+            attributes={{
+                cx: 'readOnly',
+                cy: 'readOnly',
+                rx: 'readOnly',
+                ry: 'readOnly',
+            }}
+        />
+    );
+}
 
 export default EllipseTools;

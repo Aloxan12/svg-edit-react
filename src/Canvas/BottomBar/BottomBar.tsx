@@ -55,6 +55,7 @@ const BottomBar: React.FC = () => {
       currentChild = currentChild.parentNode as HTMLElement;
     } while (currentChild?.id === 'svgcontent');
   }
+  console.log('canvasState',canvasState )
 
   return (
       <div className="bottom-bar">

@@ -3,13 +3,13 @@ import React from 'react';
 import IconButton from '../IconButton/IconButton';
 import './LeftBar.less';
 
-import { canvasContext } from '../Context/canvasContext';
+import {canvasContext, ModeType} from '../Context/canvasContext';
 
 const LeftBar: React.FC = () => {
     const [canvasState, canvasStateDispatcher] = React.useContext(canvasContext);
     const { mode } = canvasState;
 
-    const setMode = (newMode: string): void => canvasStateDispatcher({ type: 'mode', mode: newMode as any });
+    const setMode = (newMode: ModeType): void => canvasStateDispatcher({ type: 'mode', mode: newMode });
 
     return (
         <div className="left-bar">

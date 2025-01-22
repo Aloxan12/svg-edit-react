@@ -5,14 +5,14 @@ interface RectToolsProps {
     canvas?: any;
     canvasUpdated?: boolean;
     selectedElement: HTMLElement;
-    svgUpdate?: (svgString: string) => void
+    svgUpdate: (svgString: string) => void
     onClose?: () => void
 }
 
-const RectTools: React.FC<RectToolsProps> = ({ selectedElement }) => (
+const RectTools: React.FC<RectToolsProps> = ({ selectedElement, svgUpdate }) => (
     <AttributesTools
         selectedElement={selectedElement}
-        handleChange={() => {}}
+        handleChange={svgUpdate}
         attributes={{
             x: 'readOnly',
             y: 'readOnly',
