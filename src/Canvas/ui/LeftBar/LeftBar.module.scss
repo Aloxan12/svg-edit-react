@@ -6,7 +6,7 @@
   flex-direction: column;
   gap: 8px;
   background-color: var(--background-color);
-  overflow-y:visible;
+  overflow-y: visible;
   width: 42px;
 }
 
@@ -14,9 +14,10 @@
   border: 0;
   border-radius: 5px;
   font-size: 0.5em;
-  width: 40px;
+  width: 32px;
   min-height: 30px;
   background-color: var(--background-color);
+
   &:hover, &:global(.selected) {
     background-color: var(--focus-color);
   }
