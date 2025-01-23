@@ -1,5 +1,5 @@
 import React from 'react';
-import IconButton from '../../ui/IconButton/IconButton';
+import IconButton from '../../IconButton/IconButton';
 import SvgCanvas from "@svgedit/svgcanvas";
 
 interface GroupToolsProps {

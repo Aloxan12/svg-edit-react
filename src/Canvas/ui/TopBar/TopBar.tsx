@@ -9,7 +9,7 @@ import DelDupTools from './DelDupTools/DelDupTools';
 import GroupTools from './GroupTools/GroupTools';
 import AttributesTools from './AttributesTools/AttributesTools';
 
-import { canvasContext } from '../context/canvasContext';
+import { canvasContext } from '../../context/canvasContext';
 
 import './TopBar.scss';
 

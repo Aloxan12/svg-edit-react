@@ -3,7 +3,7 @@ import React from 'react';
 import IconButton from '../IconButton/IconButton';
 import './LeftBar.less';
 
-import {canvasContext, ModeType} from '../context/canvasContext';
+import {canvasContext, ModeType} from '../../context/canvasContext';
 
 const LeftBar: React.FC = () => {
     const [canvasState, canvasStateDispatcher] = React.useContext(canvasContext);
