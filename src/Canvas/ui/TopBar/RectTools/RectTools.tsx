@@ -10,18 +10,18 @@ interface RectToolsProps {
 }
 
 const RectTools: React.FC<RectToolsProps> = ({ selectedElement, svgUpdate }) => (
-    <AttributesTools
-        selectedElement={selectedElement}
-        handleChange={svgUpdate}
-        attributes={{
-            x: 'readOnly',
-            y: 'readOnly',
-            width: 'readOnly',
-            height: 'readOnly',
-            stroke: 'readOnly',
-            'stroke-width': 'readOnly',
-        }}
-    />
-);
+  <AttributesTools
+    selectedElement={selectedElement}
+    handleChange={svgUpdate}
+    attributes={{
+      x: 'readOnly',
+      y: 'readOnly',
+      width: 'readOnly',
+      height: 'readOnly',
+      stroke: 'readOnly',
+      'stroke-width': 'readOnly',
+    }}
+  />
+)
 
-export default RectTools;
+export default RectTools

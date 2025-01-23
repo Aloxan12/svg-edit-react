@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 interface InputProps {
   type: string;
@@ -8,19 +8,21 @@ interface InputProps {
   disabled?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({ type, defaultValue, handleChange, name, disabled }) => {
-  const [value, setValue] = useState<string>(defaultValue);
+const Input: React.FC<InputProps> = ({
+  type, defaultValue, handleChange, name, disabled,
+}) => {
+  const [value, setValue] = useState<string>(defaultValue)
 
   return (
-      <input
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onBlur={(e) => handleChange(name, e.target.value)}
-          type={type}
-          name={name}
-          disabled={disabled}
-      />
-  );
-};
+    <input
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      onBlur={(e) => handleChange(name, e.target.value)}
+      type={type}
+      name={name}
+      disabled={disabled}
+    />
+  )
+}
 
-export default Input;
+export default Input

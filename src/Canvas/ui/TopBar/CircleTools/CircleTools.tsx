@@ -1,5 +1,5 @@
-import React from 'react';
-import AttributesTools from '../AttributesTools/AttributesTools';
+import React from 'react'
+import AttributesTools from '../AttributesTools/AttributesTools'
 
 interface CircleToolsProps {
     canvas?: any;
@@ -10,15 +10,15 @@ interface CircleToolsProps {
 }
 
 const CircleTools: React.FC<CircleToolsProps> = ({ selectedElement }) => (
-    <AttributesTools
-        selectedElement={selectedElement}
-        handleChange={() => {}}
-        attributes={{
-            cx: 'readOnly',
-            cy: 'readOnly',
-            r: 'readOnly',
-        }}
-    />
-);
+  <AttributesTools
+    selectedElement={selectedElement}
+    handleChange={() => {}}
+    attributes={{
+      cx: 'readOnly',
+      cy: 'readOnly',
+      r: 'readOnly',
+    }}
+  />
+)
 
-export default CircleTools;
+export default CircleTools

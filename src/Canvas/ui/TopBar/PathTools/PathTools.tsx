@@ -1,5 +1,5 @@
-import React from "react";
-import AttributesTools from "../AttributesTools/AttributesTools";
+import React from 'react'
+import AttributesTools from '../AttributesTools/AttributesTools'
 
 interface PathToolsProps {
     canvas?: any;
@@ -10,11 +10,11 @@ interface PathToolsProps {
 }
 
 const PathTools: React.FC<PathToolsProps> = ({ selectedElement, svgUpdate }) => (
-    <AttributesTools
-        selectedElement={selectedElement}
-        handleChange={svgUpdate}
-        attributes={{ d: 'readOnly' }}
-    />
-);
+  <AttributesTools
+    selectedElement={selectedElement}
+    handleChange={svgUpdate}
+    attributes={{ d: 'readOnly' }}
+  />
+)
 
-export default PathTools;
+export default PathTools

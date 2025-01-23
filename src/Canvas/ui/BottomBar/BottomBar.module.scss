@@ -1,5 +1,5 @@
 
-.bottom-bar {
+.bottomBar {
   display: flex;
   border-right: none;
   height: 35px;
@@ -11,23 +11,23 @@
   align-items: center;
 }
 
-.bottom-bar .OIe-mode {
+.bottomBar .mode {
   display: inline;
 }
 
-.bottom-bar select {
+.bottomBar select {
   font-size: 1em;
 }
 
-.bottom-bar .OIe-context {
+.bottomBar .context {
   display: inline;
 }
 
-.bottom-bar .OIe-layer {
+.bottomBar .layer {
   display: inline;
 }
 
-.bottom-bar .OIe-zoom {
+.bottomBar .zoom {
   position: relative;
   width: 16px;
   left: -1px;

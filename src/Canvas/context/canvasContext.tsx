@@ -1,6 +1,8 @@
-import React, { ReactNode, useReducer, createContext, Dispatch } from 'react';
-import updateCanvas from '../editor/updateCanvas';
-import SvgCanvas from "@svgedit/svgcanvas";
+import React, {
+  ReactNode, useReducer, createContext, Dispatch,
+} from 'react'
+import SvgCanvas from '@svgedit/svgcanvas'
+import updateCanvas from '../editor/updateCanvas'
 
 export type ModeType = 'select' | 'textedit' | 'ellipse' | 'rect' | 'path' | 'line' | 'text'
 
@@ -41,54 +43,56 @@ interface CanvasContextProviderProps {
 
 // Редьюсер для CanvasContext
 const reducer = (state: CanvasState, action: Action): CanvasState => {
-  let newMode;
-  const { canvas } = state;
+  let newMode
+  const { canvas } = state
 
   switch (action.type) {
     case 'init':
-      return { ...state, canvas: action.canvas, svgcanvas: action.svgcanvas, config: action.config };
+      return {
+        ...state, canvas: action.canvas, svgcanvas: action.svgcanvas, config: action.config,
+      }
     case 'mode':
       if (canvas && action.mode) {
-        canvas.setMode(action.mode);
+        canvas.setMode(action.mode)
       }
-      return { ...state, mode: action.mode || 'select' };
+      return { ...state, mode: action.mode || 'select' }
     case 'selectedElement':
-      newMode = (canvas?.getMode() === 'select') ? { mode: 'select' as ModeType } : { mode: 'textedit' as ModeType };
+      newMode = (canvas?.getMode() === 'select') ? { mode: 'select' as ModeType } : { mode: 'textedit' as ModeType }
       console.log('newMode', newMode)
       return {
         ...state,
         selectedElement: action.selectedElement ?? null,
         multiselected: action.multiselected ?? false,
-        ...newMode
-      };
-      case 'zoom':
-      if (canvas) {
-        canvas.setZoom((action.zoom || 100) / 100);
-        updateCanvas(canvas, state.svgcanvas, state.config, true);
+        ...newMode,
       }
-      return { ...state, zoom: action.zoom || 100 };
+    case 'zoom':
+      if (canvas) {
+        canvas.setZoom((action.zoom || 100) / 100)
+        updateCanvas(canvas, state.svgcanvas, state.config, true)
+      }
+      return { ...state, zoom: action.zoom || 100 }
     case 'context':
-      return { ...state, context: action.context, layerName: canvas?.getCurrentDrawing()?.getCurrentLayerName() || '' };
+      return { ...state, context: action.context, layerName: canvas?.getCurrentDrawing()?.getCurrentLayerName() || '' }
     case 'color':
       if (canvas && action.colorType && action.color) {
-        canvas.setColor(action.colorType, action.color, false);
+        canvas.setColor(action.colorType, action.color, false)
       }
-      return state;
+      return state
     case 'deleteSelectedElements':
       if (canvas) {
-        canvas.deleteSelectedElements();
+        canvas.deleteSelectedElements()
       }
-      return state;
+      return state
     case 'setTextContent':
       if (canvas && action.text) {
-        canvas.setTextContent(action.text);
+        canvas.setTextContent(action.text)
       }
-      return state;
+      return state
     case 'updated':
-      newMode = (canvas?.getMode() !== 'textedit') ? { mode: 'select' } : {};
-      return { ...state, updated: action.updated || false };
+      newMode = (canvas?.getMode() !== 'textedit') ? { mode: 'select' } : {}
+      return { ...state, updated: action.updated || false }
     default:
-      throw new Error(`unknown action type: ${action.type}`);
+      throw new Error(`unknown action type: ${action.type}`)
   }
 }
 
@@ -105,12 +109,12 @@ const canvasInitialState: CanvasState = {
 const canvasContext = createContext<[CanvasState, Dispatch<Action>]>([
   canvasInitialState,
   () => {},
-]);
+])
 
 const CanvasContextProvider: React.FC<CanvasContextProviderProps> = ({ children }) => (
-    <canvasContext.Provider value={useReducer(reducer, canvasInitialState)}>
-      {children}
-    </canvasContext.Provider>
-);
+  <canvasContext.Provider value={useReducer(reducer, canvasInitialState)}>
+    {children}
+  </canvasContext.Provider>
+)
 
-export { canvasContext, CanvasContextProvider };
+export { canvasContext, CanvasContextProvider }

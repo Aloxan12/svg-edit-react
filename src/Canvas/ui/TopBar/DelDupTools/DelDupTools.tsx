@@ -1,5 +1,5 @@
-import React from 'react';
-import IconButton from '../../IconButton/IconButton';
+import React from 'react'
+import IconButton from '../../IconButton/IconButton'
 
 interface DelDupToolsProps {
     canvas?: {
@@ -9,10 +9,10 @@ interface DelDupToolsProps {
 }
 
 const DelDupTools: React.FC<DelDupToolsProps> = ({ canvas }) => (
-    <>
-        <IconButton icon="Delete" onClick={() => canvas?.deleteSelectedElements()} />
-        <IconButton icon="Clone" onClick={() => canvas?.cloneSelectedElements(20, 20)} />
-    </>
-);
+  <>
+    <IconButton icon="Delete" onClick={() => canvas?.deleteSelectedElements()} />
+    <IconButton icon="Clone" onClick={() => canvas?.cloneSelectedElements(20, 20)} />
+  </>
+)
 
-export default DelDupTools;
+export default DelDupTools

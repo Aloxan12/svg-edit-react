@@ -1,5 +1,5 @@
 // code derived from svg-editor.js
-import SvgCanvas from "@svgedit/svgcanvas";
+import SvgCanvas from '@svgedit/svgcanvas'
 
 const updateCanvas = (svgCanvas: SvgCanvas, cnvs: any, curConfig: any, center: any, newCtr: any = {}) => {
   // workarea node is the parent of the svg canvas

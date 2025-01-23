@@ -1,5 +1,5 @@
-import React from 'react';
-import AttributesTools from '../AttributesTools/AttributesTools';
+import React from 'react'
+import AttributesTools from '../AttributesTools/AttributesTools'
 
 interface EllipseToolsProps {
     canvas: any;
@@ -9,19 +9,17 @@ interface EllipseToolsProps {
     onClose: () => void
 }
 
-const EllipseTools: React.FC<EllipseToolsProps> = ({ selectedElement, svgUpdate }) => {
-    return (
-        <AttributesTools
-            selectedElement={selectedElement}
-            handleChange={svgUpdate}
-            attributes={{
-                cx: 'readOnly',
-                cy: 'readOnly',
-                rx: 'readOnly',
-                ry: 'readOnly',
-            }}
-        />
-    );
-}
+const EllipseTools: React.FC<EllipseToolsProps> = ({ selectedElement, svgUpdate }) => (
+  <AttributesTools
+    selectedElement={selectedElement}
+    handleChange={svgUpdate}
+    attributes={{
+      cx: 'readOnly',
+      cy: 'readOnly',
+      rx: 'readOnly',
+      ry: 'readOnly',
+    }}
+  />
+)
 
-export default EllipseTools;
+export default EllipseTools

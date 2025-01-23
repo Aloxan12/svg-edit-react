@@ -1,10 +1,8 @@
-import React, {useRef, useState} from 'react';
-// @ts-ignore
-import colorString from 'color-string';
-import Icon from '../Icon/Icon';
-import './ColorButton.less';
-import {RgbStringColorPicker} from "react-colorful";
-import {useOutsideClick} from "../../../hooks/useOutsideClick";
+import React, { useRef, useState } from 'react'
+import { RgbStringColorPicker } from 'react-colorful'
+import Icon from '../Icon/Icon'
+import cls from './ColorButton.module.scss'
+import { useOutsideClick } from '../../../hooks/useOutsideClick'
 
 // Типы пропсов для компонента ColorButton
 interface ColorButtonProps {
@@ -14,36 +12,36 @@ interface ColorButtonProps {
 }
 
 const ColorButton: React.FC<ColorButtonProps> = ({ onChange, value = '', title = '' }) => {
-  const [display, setDisplay] = useState<boolean>(false);
+  const [display, setDisplay] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement | null>(null)
-  const handleClick = () => setDisplay(!display);
-  const closeHandleClick = () => setDisplay(false);
+  const handleClick = () => setDisplay(!display)
+  const closeHandleClick = () => setDisplay(false)
 
   const onChangeComplete = (color: string) => {
-    onChange(color);
-  };
+    onChange(color)
+  }
 
-  const rgb = colorString.get.rgb(value) || [255, 255, 255]; // Default to white if value is invalid
-  const hexColor = colorString.to.hex(rgb);
+  console.log('value', value)
 
-    useOutsideClick(ref, closeHandleClick, display)
+  useOutsideClick(ref, closeHandleClick, display)
+
   return (
-      <div ref={ref} className='color-panel-wrap'>
-        {display && rgb && (
-            <div
-                className="OIe-tools-color-panel"
-            >
-                <RgbStringColorPicker color={value} onChange={onChangeComplete}/>
-            </div>
-        )}
-          <Icon name={title} className="OIe-tools-color-title"/>
-          <div
-              className="OIe-tools-color-sample"
-              onClick={handleClick}
-              style={{ backgroundColor: hexColor }}
-        />
-      </div>
-  );
-};
+    <div ref={ref} className={cls.colorPanelWrap}>
+      {display && (
+        <div
+          className={cls.toolsColorPanel}
+        >
+          <RgbStringColorPicker color={value} onChange={onChangeComplete} />
+        </div>
+      )}
+      <Icon name={title} className={cls.toolsColorTitle} />
+      <div
+        className={cls.toolsColorSample}
+        onClick={handleClick}
+        style={{ backgroundColor: value || '#000000' }}
+      />
+    </div>
+  )
+}
 
-export default ColorButton;
+export default ColorButton

@@ -1,27 +1,23 @@
 
-.left-bar {
-  position: relative;
-  top: 0;
-  right: 0;
+.leftBar {
   padding-top: 50px;
-  border: none;
-  // overflow-x:hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
   background-color: var(--background-color);
   overflow-y:visible;
   width: 42px;
-  z-index: 1;
 }
 
-.left-bar button {
+.leftBar button {
   border: 0;
-  margin: 1px;
-  padding: 2px;
   border-radius: 5px;
   font-size: 0.5em;
   width: 40px;
-  height: 30px;
+  min-height: 30px;
   background-color: var(--background-color);
-  &:hover, &.selected {
+  &:hover, &:global(.selected) {
     background-color: var(--focus-color);
   }
 }
