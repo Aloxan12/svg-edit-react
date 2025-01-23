@@ -2,14 +2,13 @@ import React, {useRef, useContext, useLayoutEffect} from 'react'
 import SvgCanvas from '@svgedit/svgcanvas'
 import svg from '../services/svg'
 import config from './editor/config'
-import TopBar from './TopBar/TopBar'
-import LeftBar from './LeftBar/LeftBar'
-import BottomBar from './BottomBar/BottomBar'
+import TopBar from './ui/TopBar/TopBar'
+import LeftBar from './ui/LeftBar/LeftBar'
+import BottomBar from './ui/BottomBar/BottomBar'
 import updateCanvas from './editor/updateCanvas'
-import { canvasContext, CanvasContextProvider } from './Context/canvasContext'
+import { canvasContext, CanvasContextProvider } from './context/canvasContext'
 import cls from './Canvas.module.scss'
 
-// Типы пропсов
 interface CanvasProps {
   svgContent: string;
   locale: string;
@@ -17,13 +16,6 @@ interface CanvasProps {
   onClose: () => void;
   log: (functionName: string, args?: any) => void;
 }
-
-// // Типы состояния canvasContext
-// interface CanvasState {
-//   selectedElement: HTMLElement | null;
-//   multiselected: boolean;
-//   canvas: SvgCanvas | null;
-// }
 
 const Canvas: React.FC<CanvasProps> = ({
                                          svgContent = '<svg x="0px" y="0px" width="640" height="480" xmlns="http://www.w3.org/2000/svg"></svg>',

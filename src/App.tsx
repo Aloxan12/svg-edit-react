@@ -1,6 +1,6 @@
 import './styles/global.scss'
-import React from 'react';
-import Canvas from "./Canvas/Canvas";
+import React, {Suspense} from 'react';
+import { CanvasAsync } from "./Canvas/Canvas.async";
 
 export const App = () => {
 
@@ -21,6 +21,8 @@ export const App = () => {
 
 
     return <div >
-        <div><Canvas svgContent={''} locale='ru' svgUpdate={ (svgContent: string) => {}} onClose={()=> {}} log={()=>{}} /></div>
+        <Suspense fallback='Loading'>
+            <CanvasAsync svgContent={''} locale='ru' svgUpdate={ (svgContent: string) => {}} onClose={()=> {}} log={()=>{}} />
+        </Suspense>
     </div>;
 };

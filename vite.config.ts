@@ -4,6 +4,15 @@ import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
     plugins: [react(), svgr()],
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    react: ['react', 'react-dom'],
+                },
+            },
+        },
+    },
     css: {
         preprocessorOptions: {
             scss: {
