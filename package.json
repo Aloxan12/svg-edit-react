@@ -6,7 +6,8 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "deploy": "vite build && gh-pages -d dist"
   },
   "files": [
     "README.md",
@@ -28,6 +29,7 @@
     "vite-plugin-svgr": "^4.3.0"
   },
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "babel-plugin-import": "^1.13.5",
