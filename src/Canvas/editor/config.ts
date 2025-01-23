@@ -1,4 +1,49 @@
-const config = {
+interface InitFill {
+  color: string // Цвет в формате строки
+  opacity: number // Прозрачность
+}
+
+interface InitStroke {
+  width: number // Ширина обводки
+  color: string // Цвет обводки в формате строки
+  opacity: number // Прозрачность обводки
+}
+
+interface TextConfig {
+  stroke_width: number // Ширина обводки текста
+  font_size: number // Размер шрифта
+  font_family: string // Семейство шрифта
+}
+
+export interface SvgConfig {
+  canvasName: string
+  canvas_expansion: number // Множитель для области вокруг канваса
+  initFill: InitFill // Настройки заливки
+  initStroke: InitStroke // Настройки обводки
+  text: TextConfig // Настройки текста
+  initOpacity: number // Начальная прозрачность
+  colorPickerCSS: string | null // CSS для цветового пикера
+  initTool: string // Изначальный инструмент
+  exportWindowType: 'svg' | 'same' // Тип окна для экспорта
+  wireframe: boolean // Режим каркасного отображения
+  showlayers: boolean // Показывать слои
+  no_save_warning: boolean // Предупреждение при сохранении
+  extPath: string // Путь для расширений
+  canvgPath: string // Путь для canvg
+  jspdfPath: string // Путь для jspdf
+  imgPath: string // Путь для изображений
+  jGraduatePath: string // Путь для jgraduate
+  extIconsPath: string // Путь для иконок расширений
+  dimensions: [string, string] // Размеры, вероятно, в виде строк (например, '0px', '0px')
+  gridSnapping: boolean // Привязка к сетке
+  gridColor: string // Цвет сетки
+  baseUnit: string // Базовая единица измерения
+  snappingStep: number // Шаг привязки
+  showRulers: boolean // Показывать линейки
+  showGrid: boolean // Показывать сетку
+}
+
+const config: SvgConfig = {
   canvasName: 'default',
   // The minimum area visible outside the canvas, as a multiple of the image dimensions.
   // The larger the number, the more one can scroll outside the canvas.

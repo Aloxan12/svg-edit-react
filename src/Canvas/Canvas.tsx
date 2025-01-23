@@ -158,10 +158,7 @@ const Canvas: React.FC<CanvasProps> = ({
 
     oiAttributes.current = svg.saveOIAttr(svgContent)
     canvasState.canvas.clear()
-    const success = canvasState.canvas.setSvgString(
-      svgContent.replace(/'/g, "\\'"),
-      true,
-    )
+    const success = canvasState.canvas.setSvgString(svgContent.replace(/'/g, "\\'"), true)
     if (!success) {
       console.error('Failed to set SVG content')
     }

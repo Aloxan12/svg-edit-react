@@ -3,15 +3,18 @@ import SvgCanvas from '@svgedit/svgcanvas'
 import IconButton from '../../IconButton/IconButton'
 
 interface GenericToolsProps {
-    canvas?: SvgCanvas | null;
-    svgUpdate: (svgString: string) => void;
-    canvasUpdated: boolean;
-    onClose: () => void;
-    selectedElement: HTMLElement | null | undefined;
+  canvas?: SvgCanvas | null
+  svgUpdate: (svgString: string) => void
+  canvasUpdated: boolean
+  onClose: () => void
+  selectedElement: HTMLElement | null | undefined
 }
 
 const GenericTools: React.FC<GenericToolsProps> = ({
-  canvas, canvasUpdated, svgUpdate, onClose,
+  canvas,
+  canvasUpdated,
+  svgUpdate,
+  onClose,
 }) => {
   const [xmlData, setXmlData] = useState<string | null>(null)
 
@@ -25,13 +28,6 @@ const GenericTools: React.FC<GenericToolsProps> = ({
     // populateLayers()
   }
 
-  const onClickClose = () => {
-    if (canvasUpdated) {
-      // eslint-disable-next-line no-alert
-      if (!window.confirm('A change was not saved, do you really want to exit?')) return
-    }
-    onClose()
-  }
   const svgSaveFile = () => {
     const svgElement = document.querySelector('#svgroot')
     if (!svgElement) {
@@ -56,12 +52,14 @@ const GenericTools: React.FC<GenericToolsProps> = ({
     // Удалить временную ссылку
     document.body.removeChild(link)
     URL.revokeObjectURL(url)
+
+    onClose()
   }
 
   useEffect(() => {
     const fetchXml = async () => {
       // Путь будет работать, если файл находится в public
-      const response = await fetch('/humberger.svg')
+      const response = await fetch('svg-edit-react/humberger.svg')
       const text = await response.text()
       setXmlData(text)
     }
@@ -69,7 +67,6 @@ const GenericTools: React.FC<GenericToolsProps> = ({
   }, [])
 
   const onUploadSvg = () => {
-    console.log('xmlData', xmlData)
     const svgString = xmlData || ''
     canvas?.setSvgString(svgString)
   }

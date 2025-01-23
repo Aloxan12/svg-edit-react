@@ -2,11 +2,11 @@ import React from 'react'
 import AttributesTools from '../AttributesTools/AttributesTools'
 
 interface RectToolsProps {
-    canvas?: any;
-    canvasUpdated?: boolean;
-    selectedElement: HTMLElement;
-    svgUpdate: (svgString: string) => void
-    onClose?: () => void
+  selectedElement: HTMLElement
+  svgUpdate: (svgString: string) => void
+  onClose?: () => void
+  canvas?: any
+  canvasUpdated?: boolean
 }
 
 const RectTools: React.FC<RectToolsProps> = ({ selectedElement, svgUpdate }) => (

@@ -15,7 +15,7 @@ export const App = () => (
   //         //     }
   //         // };
   // }, []);
-  <div>
+  <div className="main-wrapper">
     <Suspense fallback="Loading">
       <CanvasAsync
         svgContent=""

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
 interface InputProps {
-  type: string;
-  defaultValue: string;
-  handleChange: (name: string, value: string) => void;
-  name: string;
-  disabled?: boolean;
+  type: string
+  defaultValue: string
+  handleChange: (name: string, value: string) => void
+  name: string
+  disabled?: boolean
 }
 
 const Input: React.FC<InputProps> = ({

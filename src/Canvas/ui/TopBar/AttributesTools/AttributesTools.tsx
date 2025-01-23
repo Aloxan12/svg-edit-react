@@ -3,12 +3,16 @@ import cls from './AttributesTools.module.scss'
 import Input from './Input'
 
 interface AttributesToolsProps {
-    selectedElement: HTMLElement;
-    handleChange: (name: string, value: string) => void;
-    attributes: { [key: string]: string | string[] };
+  selectedElement: HTMLElement
+  handleChange: (name: string, value: string) => void
+  attributes: { [key: string]: string | string[] }
 }
 
-const AttributesTools: React.FC<AttributesToolsProps> = ({ selectedElement, handleChange, attributes }) => {
+const AttributesTools: React.FC<AttributesToolsProps> = ({
+  selectedElement,
+  handleChange,
+  attributes,
+}) => {
   const round = (val: string | null) => {
     if (val === null || Number.isNaN(Number(val))) return val
     return Math.round((Number(val) + Number.EPSILON) * 1000) / 1000
@@ -28,7 +32,13 @@ const AttributesTools: React.FC<AttributesToolsProps> = ({ selectedElement, hand
       </label>
       <label key="id">
         Id:
-        <Input type="text" name="id" defaultValue={selectedElement.id ?? ''} disabled handleChange={handleChange} />
+        <Input
+          type="text"
+          name="id"
+          defaultValue={selectedElement.id ?? ''}
+          disabled
+          handleChange={handleChange}
+        />
       </label>
       {Object.entries(attributes).map(([attribute, type]) => {
         const value = round(selectedElement.getAttribute(attribute)) ?? ''
@@ -36,7 +46,11 @@ const AttributesTools: React.FC<AttributesToolsProps> = ({ selectedElement, hand
           return (
             <label key={attribute}>
               {`${attribute}:`}
-              <select defaultValue={value} onChange={(e) => handleChange(attribute, e.target.value)} name={attribute}>
+              <select
+                defaultValue={value}
+                onChange={(e) => handleChange(attribute, e.target.value)}
+                name={attribute}
+              >
                 {type.map((o) => (
                   <option key={o} value={o}>
                     {o}
@@ -75,7 +89,13 @@ const AttributesTools: React.FC<AttributesToolsProps> = ({ selectedElement, hand
         return (
           <label key={attribute}>
             {`${attribute}:`}
-            <input type="text" disabled={attribute.toLowerCase() === 'id'} name={attribute} onChange={(e) => onChangeHandle(attribute, e.target.value)} value={value} />
+            <input
+              type="text"
+              disabled={attribute.toLowerCase() === 'id'}
+              name={attribute}
+              onChange={(e) => onChangeHandle(attribute, e.target.value)}
+              value={value}
+            />
           </label>
         )
       })}

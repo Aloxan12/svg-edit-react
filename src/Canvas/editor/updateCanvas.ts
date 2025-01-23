@@ -1,11 +1,21 @@
 // code derived from svg-editor.js
 import SvgCanvas from '@svgedit/svgcanvas'
 
-const updateCanvas = (svgCanvas: SvgCanvas, cnvs: any, curConfig: any, center: any, newCtr: any = {}) => {
+const updateCanvas = (
+  svgCanvas: SvgCanvas,
+  cnvs: SVGSVGElement | null,
+  curConfig: any,
+  center: any,
+  newCtr: any = {},
+) => {
+  if (!cnvs) return
   // workarea node is the parent of the svg canvas
-  const workarea = cnvs?.parentNode
+  const workarea = cnvs?.parentNode as SVGSVGElement | null
+  console.log('workarea', typeof workarea)
+  if (!workarea) return
+
   //  let w = workarea.width(), h = workarea.height();
-  let { width: w, height: h } = workarea?.getBoundingClientRect()
+  let { width: w, height: h } = workarea.getBoundingClientRect() || {}
   const wOrig = w
   const hOrig = h
   const oldCtr = {
@@ -29,8 +39,8 @@ const updateCanvas = (svgCanvas: SvgCanvas, cnvs: any, curConfig: any, center: a
   const { width: cw, height: ch } = cnvs.getBoundingClientRect()
   const oldCanY = ch / 2
   const oldCanX = cw / 2
-  cnvs.style.width = w
-  cnvs.style.height = h
+  cnvs.style.width = `${w}`
+  cnvs.style.height = `${h}`
   const newCanY = h / 2
   const newCanX = w / 2
   const offset = svgCanvas.updateCanvas(w, h)

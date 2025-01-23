@@ -51,22 +51,19 @@
     "react-hooks/exhaustive-deps": "off",
     "import/prefer-default-export": "off",
     "react/require-default-props": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "default-param-last": "off",
+    "react/no-unused-prop-types": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "no-param-reassign": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
         "argsIgnorePattern": "^_"
       }
     ],
-    "no-console": [
-      "warn",
-      {
-        "allow": [
-          "warn",
-          "error",
-          "info"
-        ]
-      }
-    ],
+    "no-console": "off",
     "linebreak-style": 0,
     "max-len": [
       "error",
