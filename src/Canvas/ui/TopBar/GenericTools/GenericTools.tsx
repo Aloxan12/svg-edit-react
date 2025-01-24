@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import SvgCanvas from '@svgedit/svgcanvas'
 import IconButton from '../../IconButton/IconButton'
+import SvgUploader from './components/SvgUploader'
 
 interface GenericToolsProps {
   canvas?: SvgCanvas | null
-  svgUpdate: (svgString: string) => void
-  canvasUpdated: boolean
+  // svgUpdate: (svgString: string) => void
+  // canvasUpdated: boolean
   onClose: () => void
   selectedElement: HTMLElement | null | undefined
 }
 
 const GenericTools: React.FC<GenericToolsProps> = ({
   canvas,
-  canvasUpdated,
-  svgUpdate,
+  // canvasUpdated,
+  // svgUpdate,
   onClose,
 }) => {
-  const [xmlData, setXmlData] = useState<string | null>(null)
-
   const onClickUndo = () => {
     canvas?.undoMgr.undo()
     // populateLayers()
@@ -62,21 +61,14 @@ const GenericTools: React.FC<GenericToolsProps> = ({
     onClose()
   }
 
-  useEffect(() => {
-    const fetchXml = async () => {
-      // Путь будет работать, если файл находится в public
-      const response = await fetch('/svg-edit-react/humberger.svg')
-      const text = await response.text()
-      setXmlData(text)
+  const onUploadSvg = (svgContent: string) => {
+    if (!svgContent) {
+      console.error('SVG content is empty')
+      return
     }
-    fetchXml().catch((err) => console.log(err))
-  }, [])
 
-  const onUploadSvg = () => {
-    const svgString = xmlData || ''
-    const svgElement = new DOMParser().parseFromString(svgString, 'image/svg+xml').documentElement
+    const svgElement = new DOMParser().parseFromString(svgContent, 'image/svg+xml').documentElement
 
-    // Получаем текущее содержимое SVG
     const existingSvgContent = canvas?.getSvgContent().children[0]
 
     if (!existingSvgContent) {
@@ -84,31 +76,28 @@ const GenericTools: React.FC<GenericToolsProps> = ({
       return
     }
 
-    // Извлекаем все элементы из нового SVG
     const newElements = svgElement.childNodes
 
-    // Добавляем каждый элемент в существующий SVG
     Array.from(newElements).forEach((newElement) => {
       existingSvgContent.appendChild(newElement)
     })
 
-    // Обновляем канвас с новым содержимым
     canvas?.setSvgString(existingSvgContent.outerHTML)
   }
 
   return (
     <>
-      <IconButton icon="Close" onClick={onUploadSvg} />
+      <SvgUploader onUpload={onUploadSvg} />
       <IconButton icon="Save" onClick={svgSaveFile} />
-      <IconButton
-        icon="Save"
-        className={canvasUpdated ? 'enabled' : 'disabled'}
-        onClick={() => {
-          if (canvas) {
-            svgUpdate(canvas.getSvgString())
-          }
-        }}
-      />
+      {/* <IconButton */}
+      {/*  icon="Save" */}
+      {/*  className={canvasUpdated ? 'enabled' : 'disabled'} */}
+      {/*  onClick={() => { */}
+      {/*    if (canvas) { */}
+      {/*      svgUpdate(canvas.getSvgString()) */}
+      {/*    } */}
+      {/*  }} */}
+      {/* /> */}
       <IconButton icon="Undo" onClick={onClickUndo} />
       <IconButton icon="Redo" onClick={onClickRedo} />
     </>

@@ -32,10 +32,12 @@ import fontSize from './images/fontsize.svg'
 import noColor from './images/no_color.svg'
 import zoom from './images/zoom.svg'
 import close from './images/close.svg'
+import copy from './images/copy.svg'
+import upload from './images/upload.svg'
 
 // Типы для props
 interface IconProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-  name: string;
+  name: string
 }
 
 const Icon: React.FC<IconProps> = ({ name, ...otherProps }) => {
@@ -104,6 +106,10 @@ const Icon: React.FC<IconProps> = ({ name, ...otherProps }) => {
       return <img src={noColor} alt="no color" {...otherProps} />
     case 'Zoom':
       return <img src={zoom} alt="zoom" {...otherProps} />
+    case 'Copy':
+      return <img src={copy} alt="copy" {...otherProps} />
+    case 'Upload':
+      return <img src={upload} alt="copy" {...otherProps} />
     default:
       return <img src={group} alt="group" {...otherProps} />
   }

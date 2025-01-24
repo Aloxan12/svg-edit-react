@@ -9,27 +9,29 @@
   font-size: 0.5em;
   justify-content: space-evenly;
   align-items: center;
-}
 
-.bottomBar .mode {
-  display: inline;
-}
 
-.bottomBar select {
-  font-size: 1em;
-}
+  .mode {
+    min-width: 100px;
+    display: inline;
+  }
 
-.bottomBar .context {
-  display: inline;
-}
+  select {
+    font-size: 1em;
+  }
 
-.bottomBar .layer {
-  display: inline;
-}
+  .context {
+    display: inline;
+  }
 
-.bottomBar .zoom {
-  position: relative;
-  width: 16px;
-  left: -1px;
-  top: 5px;
+  .layer {
+    display: inline;
+  }
+
+  .zoom {
+    position: relative;
+    width: 16px;
+    left: -1px;
+    top: 5px;
+  }
 }
