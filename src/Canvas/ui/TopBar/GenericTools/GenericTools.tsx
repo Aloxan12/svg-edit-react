@@ -65,7 +65,7 @@ const GenericTools: React.FC<GenericToolsProps> = ({
   useEffect(() => {
     const fetchXml = async () => {
       // Путь будет работать, если файл находится в public
-      const response = await fetch('svg-edit-react/humberger.svg')
+      const response = await fetch('/svg-edit-react/humberger.svg')
       const text = await response.text()
       setXmlData(text)
     }
@@ -74,7 +74,26 @@ const GenericTools: React.FC<GenericToolsProps> = ({
 
   const onUploadSvg = () => {
     const svgString = xmlData || ''
-    canvas?.setSvgString(svgString)
+    const svgElement = new DOMParser().parseFromString(svgString, 'image/svg+xml').documentElement
+
+    // Получаем текущее содержимое SVG
+    const existingSvgContent = canvas?.getSvgContent().children[0]
+
+    if (!existingSvgContent) {
+      console.error('No existing SVG content')
+      return
+    }
+
+    // Извлекаем все элементы из нового SVG
+    const newElements = svgElement.childNodes
+
+    // Добавляем каждый элемент в существующий SVG
+    Array.from(newElements).forEach((newElement) => {
+      existingSvgContent.appendChild(newElement)
+    })
+
+    // Обновляем канвас с новым содержимым
+    canvas?.setSvgString(existingSvgContent.outerHTML)
   }
 
   return (

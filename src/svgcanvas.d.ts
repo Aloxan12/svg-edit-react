@@ -44,9 +44,11 @@ declare module '@svgedit/svgcanvas' {
 
     getZoom(): number
 
+    getZoom(): number
+
     setZoom(value?: number): void
 
-    getMode(): ModeType
+    getSvgContent(): any
 
     setMode(mode: setMode): void
 

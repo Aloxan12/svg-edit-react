@@ -22,7 +22,6 @@ interface TopBarProps {
 const TopBar: React.FC<TopBarProps> = ({ svgUpdate, onClose }) => {
   const [canvasState] = useContext(canvasContext)
   const { canvas, selectedElement, updated } = canvasState
-
   const handleChange = (type: string, newVal: string) => {
     const elem = selectedElement as any
     switch (type) {

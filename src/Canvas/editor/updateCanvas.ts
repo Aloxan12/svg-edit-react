@@ -26,8 +26,6 @@ const updateCanvas = (
   h = Math.max(hOrig, svgCanvas.contentH * zoom * multi)
   if (w === wOrig && h === hOrig) {
     workarea.style.overflow = 'hidden'
-  } else {
-    workarea.style.overflow = 'scroll'
   }
   // const oldCanY = cnvs.height() / 2;
   // const oldCanX = cnvs.width() / 2;
