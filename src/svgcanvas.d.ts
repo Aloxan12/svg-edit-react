@@ -62,6 +62,8 @@ declare module '@svgedit/svgcanvas' {
 
     deleteSelectedElements(): void
 
+    convertToPath(elem: HTMLElement): void
+
     setSvgString(xmlString: string, preventUndo?: any): boolean
 
     alignSelectedElements(type: string): void

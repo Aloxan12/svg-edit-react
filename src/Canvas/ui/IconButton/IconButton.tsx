@@ -3,16 +3,12 @@ import Icon from '../Icon/Icon'
 import cls from './IconButton.module.scss'
 
 interface IconButtonProps {
-  onClick: () => void
+  onClick?: () => void
   className?: string
   icon: string
 }
 
-const IconButton: React.FC<IconButtonProps> = ({
-  onClick,
-  className = 'button',
-  icon,
-}) => (
+const IconButton: React.FC<IconButtonProps> = ({ onClick, className = 'button', icon }) => (
   <button type="button" className={className} onClick={onClick}>
     <Icon name={icon} className={cls.toolsIcon} />
     <br />

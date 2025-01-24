@@ -5,8 +5,8 @@ import SvgUploader from './components/SvgUploader'
 
 interface GenericToolsProps {
   canvas?: SvgCanvas | null
-  // svgUpdate: (svgString: string) => void
-  // canvasUpdated: boolean
+  svgUpdate: (svgString: string) => void
+  canvasUpdated: boolean
   onClose: () => void
   selectedElement: HTMLElement | null | undefined
 }

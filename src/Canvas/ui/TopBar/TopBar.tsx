@@ -121,7 +121,7 @@ const TopBar: React.FC<TopBarProps> = ({ svgUpdate, onClose }) => {
         svgUpdate={svgUpdate}
         onClose={onClose}
       />
-      {selectedElement && <DelDupTools canvas={canvas} />}
+      {selectedElement && <DelDupTools canvas={canvas} selectedElement={selectedElement} />}
       <GroupTools
         canvas={canvas}
         multiselected={canvasState.multiselected}

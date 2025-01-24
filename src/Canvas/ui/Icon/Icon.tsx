@@ -34,6 +34,7 @@ import zoom from './images/zoom.svg'
 import close from './images/close.svg'
 import copy from './images/copy.svg'
 import upload from './images/upload.svg'
+import bezierCurve from './images/bezier-curve.svg'
 
 // Типы для props
 interface IconProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -110,6 +111,8 @@ const Icon: React.FC<IconProps> = ({ name, ...otherProps }) => {
       return <img src={copy} alt="copy" {...otherProps} />
     case 'Upload':
       return <img src={upload} alt="copy" {...otherProps} />
+    case 'convertPath':
+      return <img src={bezierCurve} alt="copy" {...otherProps} />
     default:
       return <img src={group} alt="group" {...otherProps} />
   }
