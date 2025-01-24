@@ -6,9 +6,9 @@ import { useOutsideClick } from '../../../hooks/useOutsideClick'
 
 // Типы пропсов для компонента ColorButton
 interface ColorButtonProps {
-  onChange: (color: string) => void;
-  value?: string;
-  title?: string;
+  onChange: (color: string) => void
+  value?: string
+  title?: string
 }
 
 const ColorButton: React.FC<ColorButtonProps> = ({ onChange, value = '', title = '' }) => {
@@ -21,16 +21,12 @@ const ColorButton: React.FC<ColorButtonProps> = ({ onChange, value = '', title =
     onChange(color)
   }
 
-  console.log('value', value)
-
   useOutsideClick(ref, closeHandleClick, display)
 
   return (
     <div ref={ref} className={cls.colorPanelWrap}>
       {display && (
-        <div
-          className={cls.toolsColorPanel}
-        >
+        <div className={cls.toolsColorPanel}>
           <RgbStringColorPicker color={value} onChange={onChangeComplete} />
         </div>
       )}
