@@ -34,7 +34,7 @@ export interface SvgConfig {
   imgPath: string // Путь для изображений
   jGraduatePath: string // Путь для jgraduate
   extIconsPath: string // Путь для иконок расширений
-  dimensions: [string, string] // Размеры, вероятно, в виде строк (например, '0px', '0px')
+  dimensions: [number, number] // Размеры, вероятно, в виде строк (например, 0, 0)
   gridSnapping: boolean // Привязка к сетке
   gridColor: string // Цвет сетки
   baseUnit: string // Базовая единица измерения
@@ -49,11 +49,11 @@ const config: SvgConfig = {
   // The larger the number, the more one can scroll outside the canvas.
   canvas_expansion: 1.5,
   initFill: {
-    color: 'FF0000', // solid red
+    color: 'FFFFFF', // solid red
     opacity: 1,
   },
   initStroke: {
-    width: 5,
+    width: 2,
     color: '000000', // solid black
     opacity: 1,
   },
@@ -79,13 +79,13 @@ const config: SvgConfig = {
   extIconsPath: 'extensions/',
   // DOCUMENT PROPERTIES
   // Change the following to a preference (already in the Document Properties dialog)?
-  dimensions: ['0px', '0px'],
-  // dimensions: [640, 480],
+  // dimensions: ['0px', '0px'],
+  dimensions: [640, 480],
   // dimensions: [0, 0],
   // EDITOR OPTIONS
   // Change the following to preferences (already in the Editor Options dialog)?
   gridSnapping: false,
-  gridColor: '#000',
+  gridColor: 'rgba(0,0,0,0.5)',
   baseUnit: 'px',
   snappingStep: 10,
   showRulers: true,

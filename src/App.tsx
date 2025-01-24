@@ -22,7 +22,7 @@ export const App = () => (
         locale="ru"
         svgUpdate={(svgContent: string) => svgContent}
         onClose={() => {}}
-        log={() => {}}
+        log={console.log}
       />
     </Suspense>
   </div>

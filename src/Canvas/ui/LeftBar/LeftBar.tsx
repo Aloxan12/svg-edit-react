@@ -9,7 +9,7 @@ const LeftBar: React.FC = () => {
   const [canvasState, canvasStateDispatcher] = React.useContext(canvasContext)
   const { mode } = canvasState
 
-  const setMode = (newMode: ModeType): void =>
+  const setMode = (newMode: ModeType) => () =>
     canvasStateDispatcher({ type: 'mode', mode: newMode })
 
   return (
@@ -17,37 +17,37 @@ const LeftBar: React.FC = () => {
       <IconButton
         icon="Select"
         className={mode === 'select' ? 'selected' : ''}
-        onClick={() => setMode('select')}
+        onClick={setMode('select')}
       />
       <IconButton
         icon="Ellipse"
         className={mode === 'ellipse' ? 'selected' : ''}
-        onClick={() => setMode('ellipse')}
+        onClick={setMode('ellipse')}
       />
       <IconButton
         icon="Rect"
         className={mode === 'rect' ? 'selected' : ''}
-        onClick={() => setMode('rect')}
+        onClick={setMode('rect')}
       />
       <IconButton
         icon="Path"
         className={mode === 'path' ? 'selected' : ''}
-        onClick={() => setMode('path')}
+        onClick={setMode('path')}
       />
       <IconButton
         icon="Line"
         className={mode === 'line' ? 'selected' : ''}
-        onClick={() => setMode('line')}
+        onClick={setMode('line')}
       />
       <IconButton
         icon="Text"
         className={mode === 'text' ? 'selected' : ''}
-        onClick={() => setMode('text')}
+        onClick={setMode('text')}
       />
       <IconButton
         icon="Text 222"
         className={mode === 'text' ? 'selected' : ''}
-        onClick={() => setMode('text')}
+        onClick={setMode('text')}
       />
     </div>
   )

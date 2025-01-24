@@ -1,13 +1,11 @@
-import React, { useContext, useLayoutEffect, useRef } from 'react'
-import SvgCanvas from '@svgedit/svgcanvas'
+import React, { KeyboardEvent, useContext, useRef } from 'react'
 import svg from '../services/svg'
-import config from './editor/config'
 import TopBar from './ui/TopBar/TopBar'
 import LeftBar from './ui/LeftBar/LeftBar'
 import BottomBar from './ui/BottomBar/BottomBar'
-import updateCanvas from './editor/updateCanvas'
 import { canvasContext, CanvasContextProvider } from './context/canvasContext'
 import cls from './Canvas.module.scss'
+import { useInitEditorEffect } from './hooks/useInitEditorEffect'
 
 interface CanvasProps {
   svgContent: string
@@ -18,17 +16,17 @@ interface CanvasProps {
 }
 
 const Canvas: React.FC<CanvasProps> = ({
-  svgContent = '<svg x="0px" y="0px" width="640" height="480" xmlns="http://www.w3.org/2000/svg"></svg>',
+  svgContent = '<svg x={0} y={0} width="640" height="480" xmlns="http://www.w3.org/2000/svg"></svg>',
   locale,
   svgUpdate,
   onClose,
   log,
 }) => {
   const textRef = useRef<HTMLInputElement>(null)
-  const svgcanvasRef = useRef<SVGSVGElement>(null)
+  const svgcanvasRef = useRef<HTMLDivElement>(null)
   const oiAttributes = useRef(svg.saveOIAttr(svgContent))
   const [canvasState, dispatchCanvasState] = useContext<any>(canvasContext)
-  log('Canvas', { locale, canvasState })
+
   const updateContextPanel = () => {
     let elem = canvasState.selectedElement
     if (elem && !elem.parentNode) {
@@ -66,21 +64,11 @@ const Canvas: React.FC<CanvasProps> = ({
     dispatchCanvasState?.({ type: 'updated', updated: false })
   }
 
-  const onKeyUp = (event: any) => {
-    dispatchCanvasState?.({ type: 'setTextContent', text: event.target.value })
-  }
-
-  const onKeyDown = (event: any) => {
-    const target = event.target as HTMLElement
-    if (event.key === 'Backspace' && target?.tagName !== 'INPUT') {
-      event.preventDefault()
-      dispatchCanvasState?.({ type: 'deleteSelectedElements' })
-    }
-    // Удаление с клавишей Delete
-    if (event.key === 'Delete' && target?.tagName !== 'INPUT') {
-      event.preventDefault()
-      dispatchCanvasState?.({ type: 'deleteSelectedElements' })
-    }
+  const onKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
+    dispatchCanvasState?.({
+      type: 'setTextContent',
+      text: (event.target as HTMLInputElement).value,
+    })
   }
 
   const eventList: { [key: string]: Function } = {
@@ -103,68 +91,14 @@ const Canvas: React.FC<CanvasProps> = ({
     extensionsAdded: () => log('extensionsAddedHandler'),
   }
 
-  useLayoutEffect(() => {
-    if (!svgcanvasRef.current) {
-      console.error('svgcanvasRef is not initialized')
-      return
-    }
-    if (canvasState.canvas) {
-      console.log('Canvas is already initialized')
-      return
-    }
-
-    const editorDom = svgcanvasRef.current
-    const canvas = new SvgCanvas(editorDom, config)
-
-    if (!canvas || typeof canvas.bind !== 'function') {
-      console.error('Canvas or bind method is not available')
-      return
-    }
-
-    updateCanvas(canvas, svgcanvasRef.current, config, true)
-    if (textRef.current) {
-      canvas.textActions.setInputElem(textRef.current as HTMLInputElement)
-    }
-    Object.entries(eventList).forEach(([eventName, eventHandler]) => {
-      canvas.bind(eventName, eventHandler)
-    })
-    dispatchCanvasState?.({
-      type: 'init',
-      canvas,
-      svgcanvas: editorDom,
-      config,
-    })
-
-    document.addEventListener('keydown', onKeyDown)
-
-    return () => {
-      document.removeEventListener('keydown', onKeyDown)
-    }
-  }, [])
-
-  useLayoutEffect(() => {
-    log('new svgContent', svgContent.length)
-    if (!canvasState.canvas) {
-      return
-    }
-    if (!svgContent) {
-      console.error('Invalid SVG content:', svgContent)
-      return
-    }
-    if (canvasState.canvas) {
-      console.log('Canvas is already initialized')
-      return
-    }
-
-    oiAttributes.current = svg.saveOIAttr(svgContent)
-    canvasState.canvas.clear()
-    const success = canvasState.canvas.setSvgString(svgContent.replace(/'/g, "\\'"), true)
-    if (!success) {
-      console.error('Failed to set SVG content')
-    }
-    updateCanvas(canvasState.canvas, svgcanvasRef.current, config, true)
-    dispatchCanvasState?.({ type: 'updated', updated: false })
-  }, [svgContent])
+  useInitEditorEffect({
+    svgcanvasRef,
+    log,
+    eventList,
+    textRef,
+    svgContent,
+    oiAttributes,
+  })
 
   updateContextPanel()
 
@@ -174,7 +108,7 @@ const Canvas: React.FC<CanvasProps> = ({
       <div className={cls.editor} role="main">
         <LeftBar />
         <div className={`${cls.workarea}`}>
-          <svg ref={svgcanvasRef} className={`${cls.svgcanvas}`} />
+          <div ref={svgcanvasRef} className={`${cls.svgcanvas}`} />
         </div>
       </div>
       <BottomBar />

@@ -8,22 +8,19 @@
 
 
 .main-wrapper {
-  margin-top: 100px;
+  margin-top: 20px;
 }
 
 #svgroot {
 }
 
 #canvasBackground > rect {
+  stroke: transparent;
 }
 
 #svgroot, #canvasBackground {
-  position: absolute;
   fill: white;
-  top: 0;
-  left: 0;
   width: 100% !important;
-  height: 100% !important;
 }
 
 *:focus {

@@ -3,18 +3,15 @@ import SvgCanvas from '@svgedit/svgcanvas'
 
 const updateCanvas = (
   svgCanvas: SvgCanvas,
-  cnvs: SVGSVGElement | null,
+  cnvs: HTMLDivElement | null,
   curConfig: any,
-  center: any,
+  center: boolean,
   newCtr: any = {},
 ) => {
   if (!cnvs) return
   // workarea node is the parent of the svg canvas
   const workarea = cnvs?.parentNode as SVGSVGElement | null
-  console.log('workarea', typeof workarea)
   if (!workarea) return
-
-  //  let w = workarea.width(), h = workarea.height();
   let { width: w, height: h } = workarea.getBoundingClientRect() || {}
   const wOrig = w
   const hOrig = h
@@ -22,7 +19,6 @@ const updateCanvas = (
     x: workarea.scrollLeft + wOrig / 2,
     y: workarea.scrollTop + hOrig / 2,
   }
-  console.log('curConfig', curConfig)
   // multi: The minimum area visible outside the canvas, as a multiple of the image dimensions.
   const multi = curConfig.canvas_expansion
   const zoom = svgCanvas.getZoom()
@@ -82,8 +78,10 @@ const updateCanvas = (
   } else {
     // wArea[0].scrollLeft = newCtr.x - wOrig / 2
     // wArea[0].scrollTop = newCtr.y - hOrig / 2
-    workarea.scrollLeft = newCtr.x - wOrig / 2
-    workarea.scrollTop = newCtr.y - hOrig / 2
+    workarea.scrollLeft = 0
+    workarea.scrollTop = 0
+    // workarea.scrollLeft = newCtr.x - wOrig / 2
+    // workarea.scrollTop = newCtr.y - hOrig / 2
   }
 }
 

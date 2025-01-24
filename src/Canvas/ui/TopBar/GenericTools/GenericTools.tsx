@@ -35,6 +35,12 @@ const GenericTools: React.FC<GenericToolsProps> = ({
       return
     }
     canvas?.clearSelection()
+
+    const backgroundElement = svgElement.querySelector('#canvasBackground')
+    if (backgroundElement) {
+      backgroundElement.parentNode?.removeChild(backgroundElement)
+    }
+
     const svgContent = svgElement.outerHTML
 
     const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' })

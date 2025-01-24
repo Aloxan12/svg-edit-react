@@ -1,6 +1,6 @@
 declare module '@svgedit/svgcanvas' {
   class SvgCanvas {
-    constructor(editorDom: SVGSVGElement | null, config: any)
+    constructor(editorDom: HTMLDivElement | null, config: any)
 
     curShape: {
       fill: string

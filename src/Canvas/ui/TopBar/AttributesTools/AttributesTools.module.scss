@@ -1,27 +1,25 @@
 
-.OIeAttributesTools {
-  position: absolute;
-  left: 300px;
+.attributesTools {
   display: inline-flex;
-  flex-flow: row wrap;
   justify-content: flex-start;
   align-items: center;
-  background-color: var(--background-color);
-  width: 600px;
-  font-size: 10px;
-  &>label {
-    margin-left: 2px;
-  }
+  gap: 4px;
+  width: 700px;
+  font-size: 12px;
+  margin-left: 24px;
+
   & [name='tagName'] {
     width: 40px;
     height: 9px;
     font-size: 10px;
   }
+
   & [name='id'] {
     width: 80px;
     height: 9px;
     font-size: 10px;
   }
+
   & [name='x'],
   & [name='y'],
   & [name='cx'],
@@ -37,16 +35,19 @@
     height: 9px;
     font-size: 10px;
   }
+
   & [name='font-size'] {
     width: 40px;
     height: 9px;
     font-size: 10px;
   }
+
   & [name='font-family'] {
     width: 90px;
     height: 16px;
     font-size: 10px;
   }
+
   & [name='d'] {
     width: 120px;
     height: 9px;

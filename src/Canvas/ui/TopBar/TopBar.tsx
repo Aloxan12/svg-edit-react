@@ -83,12 +83,7 @@ const TopBar: React.FC<TopBarProps> = ({ svgUpdate, onClose }) => {
       break
 
     case 'text':
-      ElementTools = (
-        <TextTools
-          selectedElement={selectedElement}
-          handleChange={handleChange}
-        />
-      )
+      ElementTools = <TextTools selectedElement={selectedElement} handleChange={handleChange} />
       break
 
     case 'path':
@@ -127,7 +122,7 @@ const TopBar: React.FC<TopBarProps> = ({ svgUpdate, onClose }) => {
         svgUpdate={svgUpdate}
         onClose={onClose}
       />
-      <DelDupTools canvas={canvas} />
+      {selectedElement && <DelDupTools canvas={canvas} />}
       <GroupTools
         canvas={canvas}
         multiselected={canvasState.multiselected}

@@ -25,7 +25,7 @@ const AttributesTools: React.FC<AttributesToolsProps> = ({
   }
 
   return (
-    <div className={cls.OIeAttributesTools}>
+    <div className={cls.attributesTools}>
       <label key="tagName">
         Tag:
         <input type="text" name="tagName" disabled readOnly value={selectedElement.tagName ?? ''} />

@@ -11,9 +11,8 @@ const zoomOptions = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 const BottomBar: React.FC = () => {
   const [canvasState, canvasStateDispatcher] = useContext(canvasContext)
   const {
-    layerName, mode, zoom, selectedElement, context,
+    layerName, mode, zoom, selectedElement, context, canvas, colorFill,
   } = canvasState
-
   // Обработчики изменения цвета
   const onChangeFillColor = (color: string) => {
     canvasStateDispatcher({ type: 'color', colorType: 'fill', color })
@@ -24,13 +23,12 @@ const BottomBar: React.FC = () => {
   }
 
   // Цвета выбранного элемента
-  const selectedFillColor = selectedElement?.getAttribute('fill') || ''
-  const selectedStrokeColor = selectedElement?.getAttribute('stroke') || ''
+  const selectedFillColor = selectedElement?.getAttribute('fill') || colorFill || ''
+  const selectedStrokeColor = selectedElement?.getAttribute('stroke') || canvas?.curShape.stroke || ''
   // Обработчик изменения зума
   const handleZoom = (newZoom: string) => {
     canvasStateDispatcher({ type: 'zoom', zoom: Number(newZoom) })
   }
-  console.log('selectedFillColor', selectedFillColor)
   // Построение полного контекста
   let fullContext = ''
   if (context) {
@@ -40,6 +38,7 @@ const BottomBar: React.FC = () => {
       currentChild = currentChild.parentNode as HTMLElement
     } while (currentChild?.id === 'svgcontent')
   }
+
   return (
     <div className={cls.bottomBar}>
       <ColorButton onChange={onChangeFillColor} value={selectedFillColor} title="Fill" />

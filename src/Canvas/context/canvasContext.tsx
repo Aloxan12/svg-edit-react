@@ -1,5 +1,5 @@
 import React, {
-  ReactNode, useReducer, createContext, Dispatch,
+  createContext, Dispatch, ReactNode, useReducer,
 } from 'react'
 import SvgCanvas from '@svgedit/svgcanvas'
 import updateCanvas from '../editor/updateCanvas'
@@ -9,36 +9,38 @@ export type ModeType = 'select' | 'textedit' | 'ellipse' | 'rect' | 'path' | 'li
 // Типы для состояния Canvas
 interface CanvasState {
   mode: ModeType
-  selectedElement: HTMLElement | null | undefined;
-  multiselected: boolean;
-  updated: boolean;
-  zoom: number;
-  context: any | null;
-  layerName: string;
-  svgcanvas?: HTMLElement | null;
-  config?: any;
-  canvas?: SvgCanvas;
+  selectedElement: HTMLElement | null | undefined
+  multiselected: boolean
+  updated: boolean
+  zoom: number
+  context: any | null
+  layerName: string
+  svgcanvas: HTMLDivElement | null
+  config?: any
+  canvas?: SvgCanvas
+  colorFill?: string
+  colorStroke?: string
 }
 
 // Типы для действий редьюсера
 interface Action {
-  type: string;
-  canvas?: SvgCanvas;
+  type: string
+  canvas?: SvgCanvas
   mode?: ModeType
-  selectedElement?: HTMLElement | null;
-  multiselected?: boolean;
-  zoom?: number;
-  context?: any;
-  colorType?: string;
-  color?: string;
-  text?: string;
-  updated?: boolean;
-  svgcanvas?: HTMLElement | null;
+  selectedElement?: HTMLElement | null
+  multiselected?: boolean
+  zoom?: number
+  context?: any
+  colorType?: string
+  color?: string
+  text?: string
+  updated?: boolean
+  svgcanvas?: HTMLDivElement | null
   config?: any
 }
 
 interface CanvasContextProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 // Редьюсер для CanvasContext
@@ -49,7 +51,10 @@ const reducer = (state: CanvasState, action: Action): CanvasState => {
   switch (action.type) {
     case 'init':
       return {
-        ...state, canvas: action.canvas, svgcanvas: action.svgcanvas, config: action.config,
+        ...state,
+        canvas: action.canvas,
+        svgcanvas: action.svgcanvas || null,
+        config: action.config,
       }
     case 'mode':
       if (canvas && action.mode) {
@@ -57,8 +62,10 @@ const reducer = (state: CanvasState, action: Action): CanvasState => {
       }
       return { ...state, mode: action.mode || 'select' }
     case 'selectedElement':
-      newMode = (canvas?.getMode() === 'select') ? { mode: 'select' as ModeType } : { mode: 'textedit' as ModeType }
-      console.log('newMode', newMode)
+      console.log('selectedElement,', action?.mode)
+      newMode = canvas?.getMode() === 'select'
+        ? { mode: 'select' as ModeType }
+        : { mode: 'textedit' as ModeType }
       return {
         ...state,
         selectedElement: action.selectedElement ?? null,
@@ -68,14 +75,22 @@ const reducer = (state: CanvasState, action: Action): CanvasState => {
     case 'zoom':
       if (canvas) {
         canvas.setZoom((action.zoom || 100) / 100)
-        updateCanvas(canvas, state.svgcanvas, state.config, true)
+        updateCanvas(canvas, state.svgcanvas, state.config, false)
       }
       return { ...state, zoom: action.zoom || 100 }
     case 'context':
-      return { ...state, context: action.context, layerName: canvas?.getCurrentDrawing()?.getCurrentLayerName() || '' }
+      return {
+        ...state,
+        context: action.context,
+        layerName: canvas?.getCurrentDrawing()?.getCurrentLayerName() || '',
+      }
     case 'color':
       if (canvas && action.colorType && action.color) {
         canvas.setColor(action.colorType, action.color, false)
+        return {
+          ...state,
+          [action.colorType === 'fill' ? 'colorFill' : 'colorStroke']: action.color,
+        }
       }
       return state
     case 'deleteSelectedElements':
@@ -89,7 +104,7 @@ const reducer = (state: CanvasState, action: Action): CanvasState => {
       }
       return state
     case 'updated':
-      newMode = (canvas?.getMode() !== 'textedit') ? { mode: 'select' } : {}
+      newMode = canvas?.getMode() !== 'textedit' ? { mode: 'select' } : {}
       return { ...state, updated: action.updated || false }
     default:
       throw new Error(`unknown action type: ${action.type}`)
@@ -104,12 +119,12 @@ const canvasInitialState: CanvasState = {
   zoom: 100,
   context: null,
   layerName: '',
+  svgcanvas: null,
+  colorFill: '#FFF',
+  colorStroke: '#000',
 }
 
-const canvasContext = createContext<[CanvasState, Dispatch<Action>]>([
-  canvasInitialState,
-  () => {},
-])
+const canvasContext = createContext<[CanvasState, Dispatch<Action>]>([canvasInitialState, () => {}])
 
 const CanvasContextProvider: React.FC<CanvasContextProviderProps> = ({ children }) => (
   <canvasContext.Provider value={useReducer(reducer, canvasInitialState)}>
