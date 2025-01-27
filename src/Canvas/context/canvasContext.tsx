@@ -4,7 +4,15 @@ import React, {
 import SvgCanvas from '@svgedit/svgcanvas'
 import updateCanvas from '../editor/updateCanvas'
 
-export type ModeType = 'select' | 'textedit' | 'ellipse' | 'rect' | 'path' | 'line' | 'text'
+export type ModeType =
+  | 'select'
+  | 'textedit'
+  | 'ellipse'
+  | 'rect'
+  | 'path'
+  | 'line'
+  | 'text'
+  | 'hand'
 
 // Типы для состояния Canvas
 interface CanvasState {

@@ -20,6 +20,11 @@ const LeftBar: React.FC = () => {
         onClick={setMode('select')}
       />
       <IconButton
+        icon="Hand"
+        className={mode === 'hand' ? 'selected' : ''}
+        onClick={setMode('hand')}
+      />
+      <IconButton
         icon="Ellipse"
         className={mode === 'ellipse' ? 'selected' : ''}
         onClick={setMode('ellipse')}
