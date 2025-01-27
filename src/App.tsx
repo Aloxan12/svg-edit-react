@@ -19,7 +19,6 @@ export const App = () => (
     <Suspense fallback="Loading">
       <CanvasAsync
         svgContent=""
-        locale="ru"
         svgUpdate={(svgContent: string) => svgContent}
         onClose={() => {}}
         log={console.log}

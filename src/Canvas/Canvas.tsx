@@ -9,7 +9,6 @@ import { useInitEditorEffect } from './hooks/useInitEditorEffect'
 
 interface CanvasProps {
   svgContent: string
-  locale: string
   svgUpdate: (svgContent: string) => void
   onClose: () => void
   log: (functionName: string, args?: any) => void
@@ -17,7 +16,6 @@ interface CanvasProps {
 
 const Canvas: React.FC<CanvasProps> = ({
   svgContent = '<svg x={0} y={0} width="640" height="480" xmlns="http://www.w3.org/2000/svg"></svg>',
-  locale,
   svgUpdate,
   onClose,
   log,
@@ -39,7 +37,7 @@ const Canvas: React.FC<CanvasProps> = ({
       }
     }
   }
-  const selectedHandler = (win: any, elems: HTMLElement[]) => {
+  const selectedHandler = (win: Window, elems: HTMLElement[]) => {
     log('selectedHandler', elems)
     const selectedElement = elems.length === 1 || !elems[1] ? elems[0] : null
     const multiselected = elems.length >= 2 && !!elems[1]
@@ -50,12 +48,13 @@ const Canvas: React.FC<CanvasProps> = ({
     })
   }
 
-  const changedHandler = (win: any, elems: any[]) => {
+  const changedHandler = (win: Window, elems: any[]) => {
     log('changedHandler', { elems })
     dispatchCanvasState?.({ type: 'updated', updated: true })
   }
 
-  const contextsetHandler = (win: any, context: any) => {
+  const contextsetHandler = (win: Window, context: any) => {
+    log('context', { context })
     dispatchCanvasState?.({ type: 'context', context })
   }
 

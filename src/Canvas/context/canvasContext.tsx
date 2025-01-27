@@ -3,6 +3,7 @@ import React, {
 } from 'react'
 import SvgCanvas from '@svgedit/svgcanvas'
 import updateCanvas from '../editor/updateCanvas'
+import { SvgConfig } from '../editor/config'
 
 export type ModeType =
   | 'select'
@@ -24,7 +25,7 @@ interface CanvasState {
   context: any | null
   layerName: string
   svgcanvas: HTMLDivElement | null
-  config?: any
+  config?: SvgConfig
   canvas?: SvgCanvas
   colorFill?: string
   colorStroke?: string
@@ -44,7 +45,7 @@ interface Action {
   text?: string
   updated?: boolean
   svgcanvas?: HTMLDivElement | null
-  config?: any
+  config?: SvgConfig
 }
 
 interface CanvasContextProviderProps {
